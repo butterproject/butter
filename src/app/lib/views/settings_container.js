@@ -254,10 +254,6 @@
                 tmpLocationChanged = true;
                 value = path.join(field.val(), Settings.projectName);
                 break;
-            case 'activateVpn':
-                $('.vpn-connect').toggle();
-                value = field.is(':checked');
-                break;
             case 'opensubtitlesUsername':
             case 'opensubtitlesPassword':
                 return;

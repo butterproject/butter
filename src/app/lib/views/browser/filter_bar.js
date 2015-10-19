@@ -33,7 +33,6 @@
             'click #filterbar-watchlist': 'showWatchlist',
             'click #filterbar-torrent-collection': 'showTorrentCollection',
             'click .triggerUpdate': 'updateDB',
-            'click .vpn-connect': 'vpnConnect'
         },
 
 
@@ -189,9 +188,6 @@
                     'hide': 50
                 }
             });
-
-            // update VPN icon with cached status
-            App.VPNClient.setVPNStatusCached();
 
             if (Settings.rememberFilters) {
                 try {
@@ -439,11 +435,6 @@
         updateDB: function (e) {
             e.preventDefault();
             App.vent.trigger(this.type + ':update', []);
-        },
-
-        vpnConnect: function (e) {
-            e.preventDefault();
-            App.vent.trigger('vpn:connect');
         },
 
         randomMovie: function () {

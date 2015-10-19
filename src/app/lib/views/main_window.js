@@ -134,7 +134,6 @@
             App.vent.on('player:close', _.bind(this.showViews, this));
             App.vent.on('player:close', _.bind(this.Player.destroy, this.Player));
 
-            App.vent.on('vpn:connect', _.bind(this.connectVpn, this));
             App.vent.on('restartButter', _.bind(this.restartButter, this));
 
             App.vent.on('updatePostersSizeStylesheet', _.bind(this.updatePostersSizeStylesheet, this));
@@ -275,10 +274,6 @@
                 win.focus();
 
             });
-        },
-
-        connectVpn: function (e) {
-            App.VPNClient.launch();
         },
 
         // used in app to re-triger a api resync

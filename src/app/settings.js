@@ -95,18 +95,12 @@ Settings.bigPicture = false;
 // Features
 Settings.activateTorrentCollection = true;
 Settings.activateWatchlist = true;
-Settings.activateVpn = true;
 Settings.activateRandomize = true;
 Settings.onlineSearchEngine = 'KAT';
 
 // Ratio
 Settings.totalDownloaded = 0;
 Settings.totalUploaded = 0;
-
-// VPN
-Settings.vpn = false;
-Settings.vpnUsername = '';
-Settings.vpnPassword = '';
 
 Settings.updateEndpoint = {
     url: 'https://butterproject.org/',
