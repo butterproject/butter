@@ -133,8 +133,7 @@
             }, {
                 url: 'https:///',
                 strictSSL: true
-            }
-                        ];
+            }];
             App.settings['tvAPI'] = value;
             //save to db
             App.db.writeSetting({

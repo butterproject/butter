@@ -1,18 +1,18 @@
 /** Default settings **/
 var Settings = {
-    projectName : 'Butter',
-    projectUrl : 'https://butterproject.org',
-    projectTwitter : 'butterproject',
-    projectFacebook : 'ButterProjectOrg',
-    projectGooglePlus : 'ButterProject',
-    projectBlog : 'https://butterproject.github.com/butter/blog',
-    projectForum : 'https://butterproject.github.com/butter/forum',
+    projectName: 'Butter',
+    projectUrl: 'https://butterproject.org',
+    projectTwitter: 'butterproject',
+    projectFacebook: 'ButterProjectOrg',
+    projectGooglePlus: 'ButterProject',
+    projectBlog: 'https://butterproject.github.com/butter/blog',
+    projectForum: 'https://butterproject.github.com/butter/forum',
 
-    statusUrl : 'https://status.butterproject.org',
-    changelogUrl : 'https://butterproject.github.com/butter/',
-    issuesUrl : 'https://butterproject.github.com/butter/issues',
-    sourceUrl : 'https://butterproject.github.com/butter/',
-    commitUrl : 'https://butterproject.github.com/butter/commit/'
+    statusUrl: 'https://status.butterproject.org',
+    changelogUrl: 'https://butterproject.github.com/butter/',
+    issuesUrl: 'https://butterproject.github.com/butter/issues',
+    sourceUrl: 'https://butterproject.github.com/butter/',
+    commitUrl: 'https://butterproject.github.com/butter/commit/'
 };
 
 // User interface
