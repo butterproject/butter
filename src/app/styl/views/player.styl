@@ -1,0 +1,471 @@
+#player,
+.player {
+    width: 100%
+    height: 100%
+}
+
+.player {
+    z-index: 10
+    position: absolute
+    overflow: hidden
+    background-color: #000
+    video {
+        width: 100%
+        height: 100%
+    }
+    .details-player {
+        right: 10px
+        position: absolute
+        top: 20px
+        z-index: 20
+    }
+    .close-info-player {
+        top: -1px
+        right: 18px
+        position: absolute
+        color: #fff
+        font-size: 2em
+        font-smoothing: antialiased
+        transition: all 0.5s
+        &:hover {
+            cursor: pointer
+            color: #a3a5a7
+        }
+    }
+    .quality-info-player {
+        position: absolute
+        right: 95px
+        top: 3px
+        font-size: 1.3em
+        color: #fff
+        font-weight: bold
+    }
+    .state-info-player {
+        position: absolute
+        right: 60px
+        top: 80px
+        font-size 50px
+        color: rgba(255,255,255,.9)
+        z-index: 23
+        display: none
+    }
+    .eye-info-player {
+        position: absolute
+        font-size: 2em
+        color: #fff
+        top: -1px
+        right: 55px
+        z-index: 4
+        transition: all 0.5s
+        &:hover {
+            cursor: pointer
+            color: #a3a5a7
+            & + .details-info-player {
+                display: block
+            }
+        }
+    }
+    .details-info-player {
+        display: none
+        width: 250px
+        background: rgba(31,31,31,0.74)
+        padding: 10px
+        top: 32px
+        position: absolute
+        right: 45px
+        border-radius: 2px
+
+        span {
+            position relative
+            color #fff
+            font-family $AlternateFont
+            -webkit-font-smoothing antialiased
+            display: inline-box
+            font-size 14px
+            line-height 16px
+
+            &.loading-info-text {
+                float left
+            }
+            &.value {
+                float right
+            }
+            &.remaining {
+                margin-top: 10px
+                display: block
+                text-align: center
+            }
+        }
+    }
+    .arrow-up {
+        width: 0
+        height: 0
+        border-left: 6px solid rgba(0,0,0,0)
+        border-right: 6px solid rgba(0,0,0,0)
+        border-bottom: 6px solid rgba(31,31,31,0.74)
+        top: -6px
+        right: 15px
+        position: absolute
+    }
+    .playing_next {
+        color: #fff
+        z-index: 23
+        bottom: 10vh !important
+        width: 450px;
+        height: 140px;
+        padding: 10px
+        font-size: 20px
+        left: 3vw !important
+        display: none
+        background-color: rgba(0, 0, 0, 0.54) !important
+        overflow: hidden
+        
+        .pn_poster {
+            width: 90px;
+            height: 120px;
+            float: left;
+
+            .playing_next_poster {
+                width: 80px;
+            }
+        }
+        .pn_epinfo {
+            width: 235px;
+            height: 80px;
+            float: left;
+            text-align: left;
+            
+            .playing_next_show {
+                font-size: 15px;
+                font-weight: bold;
+                line-height: 20px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .playing_next_episode {
+                font-size: 11px;
+                line-height: 14px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .playing_next_number {
+                font-size: 17px;
+                margin-top: 18px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .pn_counter {
+            width: 105px;
+            height: 80px;
+            float: left;
+
+            .playing_next_countertext {
+                font-size: 11px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+
+            #nextCountdown {
+                color: rgb(0, 143, 255);
+                font-size: 38px;
+                text-align: center;
+                margin-top: 6px;
+            }
+        }
+        .pn_btns {
+            width: 340px;
+            height: 40px;
+            float: left;
+
+            .auto-next-btn {
+                position relative
+                float left
+                margin-top 3px
+                margin-left 15px
+                padding 12px
+
+                border-radius $ButtonRadius
+                background-color $ButtonBg
+                text-align center
+                color $SettingsButtonText
+                font-family $ButtonFont, $AlternateFont
+                font-size 12px
+                cursor pointer
+                transition background-color .5s
+                &:hover {
+                    background-color $ButtonBgHover
+                    color $SettingsButtonTextHover
+                    text-decoration none
+                }
+                &:active{
+                    box-shadow: inset 0 1px 4px rgba(0,0,0,0.6)
+                    background: $ButtonBgActive
+                }
+            }
+
+        }
+        
+    }
+    .verify-metadata {
+        color: #fff
+        z-index: 23
+        bottom: 10vh !important
+        width: 450px;
+        height: 140px;
+        padding: 10px
+        font-size: 20px
+        left: 3vw !important
+        display: none
+        background-color: rgba(0, 0, 0, 0.54) !important
+        overflow: hidden
+        
+        .vm_poster {
+            width: 90px;
+            height: 120px;
+            float: left;
+
+            .verifmeta_poster {
+                width: 80px;
+            }
+        }
+        .vm_epinfo {
+            width: 235px;
+            height: 80px;
+            float: left;
+            text-align: left;
+            
+            .verifmeta_show {
+                font-size: 15px;
+                font-weight: bold;
+                line-height: 20px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .verifmeta_episode {
+                font-size: 11px;
+                line-height: 14px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .verifmeta_number {
+                font-size: 17px;
+                margin-top: 18px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .vm_box {
+            width: 105px;
+            height: 80px;
+            float: left;
+
+            .verifmeta_boxtext {
+                font-size: 11px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+        .vm_btns {
+            width: 340px;
+            height: 40px;
+            float: left;
+
+            .vm-btn {
+                position relative
+                float left
+                margin-top 3px
+                margin-left 15px
+                padding 12px
+
+                border-radius $ButtonRadius
+                background-color $ButtonBg
+                text-align center
+                color $SettingsButtonText
+                font-family $ButtonFont, $AlternateFont
+                font-size 12px
+                cursor pointer
+                transition background-color .5s
+                &:hover {
+                    background-color $ButtonBgHover
+                    color $SettingsButtonTextHover
+                    text-decoration none
+                }
+                &:active{
+                    box-shadow: inset 0 1px 4px rgba(0,0,0,0.6)
+                    background: $ButtonBgActive
+                }
+            }
+
+        }
+        
+    }
+
+/*        span {
+            font-weight: bold
+            color: rgb(0, 143, 255)
+        }
+    }
+    .auto-next-btn {
+        position relative
+        float right
+        margin 15px
+        padding 12px
+
+
+        border-radius $ButtonRadius
+        background-color $ButtonBg
+        text-align center
+        color $SettingsButtonText
+        font-family $ButtonFont, $AlternateFont
+        font-size 13px
+        cursor pointer
+        transition background-color .5s
+        &:hover {
+            background-color $ButtonBgHover
+            color $SettingsButtonTextHover
+            text-decoration none
+        }
+        &.disabled {
+            background-color $ButtonBgDisabled
+            &:hover{
+                background-color $ButtonBgDisabled
+            }
+            &:active{
+                background-color $ButtonBgDisabled
+            }
+        }
+
+        &.green{
+            background-color #27AE60
+        }
+        &.red{
+            background-color #F15153
+        }
+        &:active{
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.6)
+            background: $ButtonBgActive
+        }
+    }*/
+}
+
+.player-title {
+    position: absolute
+    top: 18px
+    left: 16px
+    color: #fff
+    font-family: 'Open Sans', sans-serif
+    font-size: 17px
+    max-width: 85%
+    z-index: 3
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    padding-bottom: 3px
+}
+
+.dragzone {
+    -webkit-app-region: drag
+    position: fixed
+    display: none
+}
+
+.vjs-quality-button {
+    color: #fff
+    right: 15px
+    top: 8px
+}
+
+.vjs-subtitles-button {
+    top: 12px
+}
+
+.vjs_smallersub_button {
+    &.vjs-control {
+        top: 13px
+    }
+}
+
+.vjs_biggersub_button {
+    &.vjs-control {
+        top: 13px
+    }
+}
+
+.player-header-background {
+    position: absolute
+    background: linear-gradient(#000, transparent) !important
+    width: 100% !important
+    height: 75px !important
+    z-index: 3
+    top: 0
+}
+
+.vjs-overlay,
+.vjs-overlay.vjs-overlay-top-left {
+    position: absolute
+    width: 33%
+    font-size: 14px
+    background-color: transparent
+    color: #fff
+    font-family: "Open Sans Semibold"
+    font-smoothing: antialiased
+    padding: 10px
+    border-radius: 3px
+    top: 65px
+    left: 5px
+}
+
+.vjs-overlay {
+    &.vjs-overlay-top {
+        margin-left: -16.5%
+        left: 50%
+    }
+    &.vjs-overlay-top-right {
+        left: auto
+        right: 5px
+    }
+    &.vjs-overlay-left {
+        top: 50%
+        margin-top: -15px
+    }
+    &.vjs-overlay-right {
+        left: auto
+        right: 5px
+        top: 50%
+        margin-top: -15px
+    }
+    &.vjs-overlay-bottom {
+        margin-left: -16.5%
+        left: 50%
+        top: auto
+        bottom: 4.5em
+    }
+    &.vjs-overlay-bottom-left {
+        bottom: 4.5em
+        top: auto
+        left: 5px
+    }
+    &.vjs-overlay-bottom-right {
+        bottom: 4.5em
+        top: auto
+        left: auto
+        right: 5px
+    }
+}
+
+.video-js {
+    &.vjs-fullscreen {
+        &.vjs-user-inactive {
+            .vjs-tech {
+                pointer-events: none
+            }
+        }
+    }
+}

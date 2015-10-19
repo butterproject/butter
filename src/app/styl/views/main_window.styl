@@ -1,0 +1,115 @@
+html,
+body,
+.main-window-region
+    background-color $BgColor1
+    height 100%
+    -moz-user-select none
+    -khtml-user-select none
+    -webkit-user-select none
+    -o-user-select none
+
+.trailer_mouse_catch
+    display none
+    width 100% 
+    height calc(100% - 115px) 
+    top 75px
+    z-index 12 
+    position absolute
+
+#main-window
+    width 100%
+    height 100%
+    background-color $BgColor1
+    box-shadow 0 0 40px rgba(0, 0, 0, .75)
+    margin-left auto
+    margin-right auto
+
+    font-family $MainFont, $Font, $AlternateFont
+    -webkit-font-smoothing antialiased
+
+    cursor default
+
+    button
+        background-color transparent
+        border none
+        cursor pointer
+        outline none
+
+    #content
+        position absolute
+        width 100%
+        height 100%
+        overflow hidden
+
+.drop-indicator 
+    position fixed
+    background-color $ButtonBgActive
+    z-index 1000
+    display none
+
+    &.right 
+        top: 4px
+        right: 0px
+        width: 4px
+        height: 100%
+    &.left
+        bottom: 4px
+        left: 0px
+        width: 4px
+        height: 100%
+    &.bottom 
+        bottom 0px
+        right 4px
+        width 100%
+        height 4px
+    &.top
+        top: 0px
+        left: 4px
+        width: 100%
+        height: 4px
+
+#drop-mask 
+    position: absolute
+    width: 100%
+    height: 100%
+    z-index: 999
+    display: none
+    -webkit-filter blur(5px)
+    filter blur(5px)
+
+.close-icon
+    top: 45px
+    right: 20px
+    position: fixed
+    color: $CloseButton
+    font-size: 25px
+    line-height: 25px
+    cursor pointer
+    z-index 100
+    transition all .5s
+    font-smoothing: antialiased
+
+    &:hover
+        color $CloseButtonHover
+        transition all .5s
+
+.movie-detail, .shows-container-contain
+    .close-icon
+        top: 75px;
+
+.knm
+    transition: all 3000ms ease-in-out;
+    transform:rotate(180deg);
+
+.notification_alert
+    position fixed
+    pointer-events: none
+    background-color rgba($NotifAlertBg,.8);
+    border-radius 4px
+    padding 10px
+    top 78px
+    right 20px
+    color $NotifAlertText
+    font-family $AlternateFont
+    font-size 14px
+    z-index 999

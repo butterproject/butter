@@ -1,0 +1,165 @@
+.about-container
+    z-index 1
+    height 100%
+    width 100%
+    position fixed
+    background-color $BgColor1
+    -webkit-user-select none
+    opacity 1
+    background-image url('../images/bg-header.jpg')
+    background-size cover
+    background-position 50% 50%
+    
+    .margintop
+        height calc(20% - 20px)
+
+    .icon-title
+        opacity 0.9
+        margin 80px auto 25px auto
+        height 110px
+        max-height 110px
+        display block
+
+    .overlay-content
+        height 100%
+        width 100%
+        position absolute
+        background rgba(0, 0, 0, 0.4)
+        z-index -1
+
+    .content
+        margin 0 auto
+        width 80%
+        height 60%
+        color #fff
+        font-weight 100
+        font-family $AlternateFont
+        font-size 17px
+        text-align center
+
+        .title-big
+            font-size 2.4em
+            position absolute
+
+        .title-version
+            position absolute
+            right 8px
+            bottom 8px
+            font-size 11px
+
+            a
+                cursor pointer
+                color #fff
+                &:hover
+                    color $ButtonBgHover
+
+        .title-issue
+            position absolute
+            left 8px
+            bottom 8px
+            font-size 11px
+
+            a
+                cursor pointer
+                color #fff
+                &:hover
+                    color $ButtonBgHover
+
+        .text-about
+            line-height 1.2em
+            text-align: justify
+            text-align-last: center
+            margin 0 auto
+            max-width 42em
+            font-size 1em
+            
+            .full-text
+                height 90px
+
+            br
+                line-height 2
+
+        .icons_social
+            bottom 45px
+            position absolute
+            left 0
+            right 0
+
+            a
+                width 38px
+                height 38px
+                display inline-block
+                transition opacity .2s ease
+                margin 0 8px
+
+                &:hover
+                    opacity .7
+
+            a.site_icon
+                background url(../images/icons/icon-popcorn.png) no-repeat center
+                background-size contain
+
+            a.twitter_icon
+                background url(../images/icons/icon-twitter.png) no-repeat center
+                background-size contain
+                
+            a.facebook_icon
+                background url(../images/icons/icon-facebook.png) no-repeat center
+                background-size contain
+                
+            a.google_icon
+                background url(../images/icons/icon-google.png) no-repeat center
+                background-size contain
+                
+            a.stash_icon
+                background url(../images/icons/icon-stash.png) no-repeat center
+                background-size contain
+
+            a.gitlab_icon
+                background url(../images/icons/icon-gitlab.png) no-repeat center
+                background-size contain
+
+            a.blog_icon
+                background url(../images/icons/icon-blog.png) no-repeat center
+                background-size contain
+                
+            a.forum_icon
+                background url(../images/icons/icon-discourse.png) no-repeat center
+                background-size contain
+
+        .last-line
+            bottom 25px
+            color #fff
+            font-family sans-serif
+            font-size 14px
+            position absolute
+            left 0
+            right 0
+
+    .changelog-overlay
+        background rgba(0,0,0,.8)
+        display none
+        position fixed
+        top 32px
+        width 100vw
+        height 100vh
+        z-index 2
+
+        .title
+            font-size 24px
+            padding 0 0 20px
+            margin-top 5vh
+            color #fff
+            font-family $AlternateFont
+            text-align center
+
+        .changelog-text
+            color #efefef
+            text-align justify
+            font-family $AlternateFont
+            width 70%
+            height 70%
+            margin 0 auto
+            margin-top 2vh
+            padding 0px 15px
+            scrollable()

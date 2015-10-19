@@ -1,0 +1,115 @@
+.file-selector-container
+    z-index 100
+    height 100%
+    width 100%
+    position fixed
+    background-color $BgColor1
+    -webkit-user-select none
+    opacity 1
+    background-position 50% 50%
+
+    .button
+        position: absolute
+        right: 17%
+        cursor: pointer
+        height: 35px
+        margin-top: 15px
+        border-radius: $ButtonRadius
+        background-clip: padding-box
+        background-color: $ButtonBg
+        padding: 0 15px
+        transition: background-color 0.5s
+        color: $ButtonText
+        font-family: $MainFont
+        font-smoothing: antialiased
+        text-align: center
+        font-size: 12px
+        line-height: 34px
+
+        &:hover
+            background: $ButtonBgHover
+            text-decoration: none
+
+        &:active
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.6)
+            background: $ButtonBgActive
+
+        .playerchoice
+            padding-left: 0px
+            margin: 0
+            border: 0
+
+        &.store-torrent
+            right: initial
+            margin-left: 17%
+            margin-top: 15px
+            position: absolute
+
+        &.disabled
+            background-color $ButtonBgDisabled
+            &:hover
+                background-color $ButtonBgDisabled
+            &:active
+                background-color $ButtonBgDisabled
+
+    .title
+        font-size 24px
+        padding 0 0 20px
+        margin-top 100px
+        color $Text1
+        font-family $AlternateFont
+        text-align center
+
+    .fakeskan
+        display none
+        position absolute
+        width 66%
+        left 17%
+        text-align center
+        padding 5px 0px
+        background rgba(0,0,0,.2)
+        margin-top -28px
+        color $Text1
+        font-family $AlternateFont
+        font-size 13px
+        line-height 16px
+
+        &:before
+            content '\f071'
+            color $WarningColor
+            font-family "fontawesome"
+            font-size 16px
+            padding-right 8px
+
+    .content
+        margin 0 auto
+        width 66%
+        height 60%
+        color $Text1
+        font-family $AlternateFont
+        font-size 17px
+        text-align center
+        box-shadow inset -3px 0px 10px $FileSelectorShadow
+        scrollable()
+
+        ul
+            li.file-item
+                border-bottom 1px solid rgba(255, 255, 255, 0.06)
+                background $FileSelectorBg
+                text-align left
+                margin 2px
+                cursor pointer
+                color $FileSelectorText
+
+                a
+                    color $FileSelectorText
+                    text-decoration blink
+                    width 100%
+                    display block
+                    padding 10px 0 10px 40px
+                    transition all 0.3s
+
+                    &:hover
+                        color $ButtonBgHover
+                    &:active
+                        color $ButtonBgActive
