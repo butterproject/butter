@@ -38,7 +38,7 @@ Good bug reports are extremely helpful - thank you!
 
 Guidelines for bug reports:
 
-1. **Use the GitLab issue search** &mdash; check if the issue has already been reported.
+1. **Use the GitHub issue search** &mdash; check if the issue has already been reported.
 
 2. **Check if the issue has been fixed** &mdash; try to reproduce it using the latest `master` or look for [closed issues](https://github.com/butterproject/butter/issues?q=is%3Aissue+is%3Aclosed).
 
@@ -105,15 +105,15 @@ what's already there? Does it fit with the Roadmap?
 Pull requests are awesome. If you're looking to raise a PR for something which doesn't have an open issue, please think carefully about [raising an issue](#report-a-bug) which your PR can close, especially if you're fixing a bug. This makes it more likely that there will be enough information available for your PR to be properly tested and merged. To make sure your PR is accepted as quickly as possible, you should be sure to have read
 all the guidelines on:
 
-* [code standards](../../../../butter/desktop/wikis/code-standards)
-* [commit messages](../../../../butter/desktop/wikis/git-workflow#commit-messages)
-* [cleaning-up history](../../../../butter/desktop/wikis/git-workflow#clean-up-history)
-* [not breaking the build](../../../../butter/desktop/wikis/git-workflow#check-it-passes-the-tests)
+* [code standards](https://github.com/butterproject/butter/wiki/Code-Standards)
+* [commit messages](https://github.com/butterproject/butter/wiki/Git-Workflow#commit-messages)
+* [cleaning-up history](https://github.com/butterproject/butter/wiki/Git-Workflow#clean-up-history)
+* [not breaking the build](https://github.com/butterproject/butter/wiki/Git-Workflow#check-it-passes-the-tests)
 
 ##### Need Help?
 
 If you're not completely clear on how to submit / update / *do* Pull Requests, please check out our in depth
-[Git Workflow guide](../../../../butter/desktop/wikis/git-workflow) for Butter.
+[Git Workflow guide](https://github.com/butterproject/butter/wiki/Git-Workflow) for Butter.
 
 
 ### Translation
@@ -134,7 +134,7 @@ For translations please go to: [Transifex](https://www.transifex.com/butterproje
 1. cd into the project folder
 1. Run `npm install -g grunt-cli bower` - to make it possible to run grunt commands
 
-[complete documentation](../../../../butter/desktop/wikis/build-debug).
+[complete documentation](https://github.com/butterproject/butter/wiki/Build-Debug).
 
 ### Updating with the latest changes
 
