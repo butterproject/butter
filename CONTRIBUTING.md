@@ -78,8 +78,8 @@ Any other information you want to share that is relevant to the issue being repo
 
 Feature requests are welcome. Before you submit one be sure to have:
 
-1. Read the [Roadmap](https://github.com/butterproject/butter/wiki/RoadMap) and
-[Planned Features](https://github.com/butterproject/butter/wiki/Planned-Features) listing, **use the Jira search** and check the feature hasn't already been requested.
+1. Read the [Roadmap](https://github.com/butterproject/butter/tree/master/docs/RoadMap.md) and
+[Planned Features](https://github.com/butterproject/butter/tree/master/docs/Planned-Features.md) listing, **use the Jira search** and check the feature hasn't already been requested.
 2. Take a moment to think about whether your idea fits with the scope and aims of the project, or if it might
 better fit being an app/plugin.
 3. Remember, it's up to *you* to make a strong case to convince the project's leaders of the merits of this
@@ -105,15 +105,15 @@ what's already there? Does it fit with the Roadmap?
 Pull requests are awesome. If you're looking to raise a PR for something which doesn't have an open issue, please think carefully about [raising an issue](#report-a-bug) which your PR can close, especially if you're fixing a bug. This makes it more likely that there will be enough information available for your PR to be properly tested and merged. To make sure your PR is accepted as quickly as possible, you should be sure to have read
 all the guidelines on:
 
-* [code standards](https://github.com/butterproject/butter/wiki/Code-Standards)
-* [commit messages](https://github.com/butterproject/butter/wiki/Git-Workflow#commit-messages)
-* [cleaning-up history](https://github.com/butterproject/butter/wiki/Git-Workflow#clean-up-history)
-* [not breaking the build](https://github.com/butterproject/butter/wiki/Git-Workflow#check-it-passes-the-tests)
+* [code standards](https://github.com/butterproject/butter/tree/master/docs/Code-Standards.md)
+* [commit messages](https://github.com/butterproject/butter/tree/master/docs/Git-Workflow.md#commit-messages)
+* [cleaning-up history](https://github.com/butterproject/butter/tree/master/docs/Git-Workflow.md#clean-up-history)
+* [not breaking the build](https://github.com/butterproject/butter/tree/master/docs/Git-Workflow.md#check-it-passes-the-tests)
 
 ##### Need Help?
 
 If you're not completely clear on how to submit / update / *do* Pull Requests, please check out our in depth
-[Git Workflow guide](https://github.com/butterproject/butter/wiki/Git-Workflow) for Butter.
+[Git Workflow guide](https://github.com/butterproject/butter/tree/master/docs/Git-Workflow.md) for Butter.
 
 
 ### Translation
@@ -134,7 +134,7 @@ For translations please go to: [Transifex](https://www.transifex.com/butterproje
 1. cd into the project folder
 1. Run `npm install -g grunt-cli bower` - to make it possible to run grunt commands
 
-[complete documentation](https://github.com/butterproject/butter/wiki/Build-Debug).
+[complete documentation](https://github.com/butterproject/butter/tree/master/docs/Build-Debug.md).
 
 ### Updating with the latest changes
 
