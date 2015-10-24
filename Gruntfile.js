@@ -231,7 +231,7 @@ module.exports = function (grunt) {
                 cmd: '"build/cache/win/<%= nwjs.options.version %>/nw.exe" .'
             },
             mac: {
-                cmd: 'build/cache/mac/<%= nwjs.options.version %>/nwjs.app/Contents/MacOS/nwjs .'
+                cmd: 'cache/<%= nwjs.options.version %>/osx64/nwjs.app/Contents/MacOS/nwjs .'
             },
             linux32: {
                 cmd: '"build/' + projectName + '/linux32/' + projectName + '" .'
