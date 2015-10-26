@@ -5,10 +5,10 @@ var Settings = {
     projectTwitter: 'butterproject',
     projectFacebook: 'ButterProjectOrg',
     projectGooglePlus: 'ButterProject',
-    projectBlog: 'https://butterproject.github.io/butter/blog',
-    projectForum: 'https://butterproject.github.io/butter/forum',
+    projectBlog: 'http://blog.butterproject.org',
+    projectForum: 'http://discuss.butterproject.org',
 
-    statusUrl: 'https://status.butterproject.org',
+    statusUrl: 'http://status.butterproject.org',
     changelogUrl: 'https://butterproject.github.io/butter/',
     issuesUrl: 'https://github.com/butterproject/butter/issues',
     sourceUrl: 'https://github.com/butterproject/butter/',
@@ -103,13 +103,13 @@ Settings.totalDownloaded = 0;
 Settings.totalUploaded = 0;
 
 Settings.updateEndpoint = {
-    url: 'https://butterproject.org/',
+    url: 'http://butterproject.org/',
     index: 0,
     proxies: [{
         url: 'https://butterproject.org/',
         fingerprint: '',
     }, {
-        url: 'https://butterproject.github.com/butter/updates',
+        url: 'http://butterproject.org/butter/updates',
         fingerprint: ''
     }]
 };
