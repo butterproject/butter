@@ -1,9 +1,6 @@
 <div class="torrent-collection-container">
     <div class="margintop"></div>
     <div class="content">
-        <h1>Torrent Collection is disabled in this Butter build</h1>
-    </div>
-    <div class="content" style="display: none;">
 
         <div class="onlinesearch">
             <div class="engine-selector">
