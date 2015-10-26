@@ -1,7 +1,7 @@
 /** Default settings **/
 var Settings = {
     projectName: 'Butter',
-    projectUrl: 'https://butterproject.org',
+    projectUrl: 'http://butterproject.org',
     projectTwitter: 'butterproject',
     projectFacebook: 'ButterProjectOrg',
     projectGooglePlus: 'ButterProject',
@@ -109,7 +109,7 @@ Settings.updateEndpoint = {
         url: 'https://butterproject.org/',
         fingerprint: '',
     }, {
-        url: 'https://butterproject.github.io/butter/updates',
+        url: 'https://butterproject.github.com/butter/updates',
         fingerprint: ''
     }]
 };

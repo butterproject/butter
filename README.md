@@ -1,5 +1,7 @@
 # [Butter](https://github.com/butterproject/butter)
 
+[![Build Status](https://travis-ci.org/butterproject/butter.svg?branch=master)](https://travis-ci.org/butterproject/butter)
+
 Allow any computer user to watch movies easily streaming from torrents, without any particular knowledge.
 
 Visit the project's website at <https://butterproject.org>.
@@ -32,7 +34,7 @@ If you encounter trouble with the above method, you can try:
 1. `npm install`
 1. `bower install`
 1. `grunt lang`
-1. `grunt nodewebkit`
+1. `grunt nwjs`
 1. `grunt css`
 1. `grunt start`
 
