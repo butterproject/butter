@@ -80,6 +80,4 @@ You should have received a copy of the GNU General Public License along with thi
 ***
 
 Copyright (c) 2015 Butter Project - Released under the
-[GPL v3 license](LICENSE.tx
-
-t).
+[GPL v3 license](LICENSE.txt).
