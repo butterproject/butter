@@ -53,6 +53,7 @@
 
         onShow: function () {
             win.info('Show movie detail (' + this.model.get('imdb_id') + ')');
+            var self = this;
             this.handleAnime();
 
             var torrents = this.model.get('torrents');
@@ -106,7 +107,7 @@
                 coverCache = null;
             };
             coverCache.onerror = function () {
-                $('.mcover-image').attr('src', this.model.get('image')).addClass('fadein');
+                $('.mcover-image').attr('src', self.model.get('image')).addClass('fadein');
                 coverCache = null;
             };
 
@@ -150,7 +151,8 @@
         },
 
         handleAnime: function () {
-            if (this.model.get('imdb_id').indexOf('mal') === -1) {
+            var id = this.model.get('imdb_id');
+            if (id && id.indexOf('mal') === -1) {
                 return;
             }
 
