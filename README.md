@@ -24,6 +24,7 @@ The [master](https://github.com/butterproject/butter-desktop) branch which conta
 
 #### Quickstart:
 
+1. `Make sure you have CMake installed` ([https://cmake.org/download/](https://cmake.org/download/))
 1. `npm install -g grunt-cli bower`
 1. `npm install`
 1. `grunt build`
