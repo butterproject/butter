@@ -182,7 +182,7 @@ App.addInitializer(function (options) {
 });
 
 var deleteFolder = function (path) {
-    rimraf(path, function(){});
+    rimraf(path, function () {});
 };
 
 var deleteCookies = function () {
@@ -568,33 +568,52 @@ window.ondrop = function (e) {
     win.debug('Drag completed');
     $('.drop-indicator').hide();
 
-    var file = e.dataTransfer.files[0];
+    var checkTorrentFile = function (file) {
+        return file.indexOf('.torrent') !== -1;
+    };
 
-    if (file !== null && (file.name.indexOf('.torrent') !== -1 || file.name.indexOf('.srt') !== -1)) {
+    if (e.dataTransfer.files.length === 0) {
+        var file = e.dataTransfer.files[0];
+        if (file !== null && (checkTorrentFile(file.name) || file.name.indexOf('.srt') !== -1)) {
 
-        fs.writeFile(path.join(App.settings.tmpLocation, file.name), fs.readFileSync(file.path), function (err) {
-            if (err) {
-                App.PlayerView.closePlayer();
-                window.alert(i18n.__('Error Loading File') + ': ' + err);
-            } else {
-                if (file.name.indexOf('.torrent') !== -1) {
-                    Settings.droppedTorrent = file.name;
-                    handleTorrent(path.join(App.settings.tmpLocation, file.name));
-                } else if (file.name.indexOf('.srt') !== -1) {
-                    Settings.droppedSub = file.name;
-                    App.vent.trigger('videojs:drop_sub');
+            fs.writeFile(path.join(App.settings.tmpLocation, file.name), fs.readFileSync(file.path), function (err) {
+                if (err) {
+                    App.PlayerView.closePlayer();
+                    window.alert(i18n.__('Error Loading File') + ': ' + err);
+                } else {
+                    if (file.name.indexOf('.torrent') !== -1) {
+                        Settings.droppedTorrent = file.name;
+                        handleTorrent(path.join(App.settings.tmpLocation, file.name));
+                    } else if (file.name.indexOf('.srt') !== -1) {
+                        Settings.droppedSub = file.name;
+                        App.vent.trigger('videojs:drop_sub');
+                    }
                 }
+            });
+
+        } else if (file !== null && isVideo(file.name)) {
+            handleVideoFile(file);
+        } else {
+            var data = e.dataTransfer.getData('text/plain');
+            Settings.droppedMagnet = data;
+            handleTorrent(data);
+        }
+    } else {
+        _.each(e.dataTransfer.files, function (file) {
+            if (file !== null && (checkTorrentFile(file.name) || file.name.indexOf('.srt') !== -1)) {
+
+                fs.writeFile(path.join(App.settings.torrentCollectionLocation, file.name), fs.readFileSync(file.path), function (err) {
+                    if (err) {
+                        App.PlayerView.closePlayer();
+                        window.alert(i18n.__('Error Loading File') + ': ' + err);
+                    } else {
+
+                    }
+                });
+
             }
         });
-
-    } else if (file !== null && isVideo(file.name)) {
-        handleVideoFile(file);
-    } else {
-        var data = e.dataTransfer.getData('text/plain');
-        Settings.droppedMagnet = data;
-        handleTorrent(data);
     }
-
     return false;
 };
 

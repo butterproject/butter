@@ -28,7 +28,7 @@
                 _link = _link.replace(/%5B/g, '[').replace(/%5D/g, ']');
                 _link = _link.replace(/%28/g, '(').replace(/%29/g, ')');
                 link = _link.replace(/\W$/, ''); // remove trailing non-word char
-                return link;
+                return link + '.magnet';
             };
         },
 
@@ -90,7 +90,7 @@
         },
 
         isTorrentStored: function () {
-            var target = data_path + '/TorrentCollection/';
+            var target = App.settings.torrentCollectionLocation + '/';
 
             // bypass errors
             if (!Settings.droppedTorrent && !Settings.droppedMagnet) {
@@ -106,8 +106,8 @@
             if (Settings.droppedTorrent) {
                 file = Settings.droppedTorrent;
             } else if (Settings.droppedMagnet && !Settings.droppedStoredMagnet) {
-                _file = Settings.droppedMagnet,
-                    file = formatMagnet(_file);
+                _file = Settings.droppedMagnet;
+                file = formatMagnet(_file);
             } else if (Settings.droppedMagnet && Settings.droppedStoredMagnet) {
                 file = Settings.droppedStoredMagnet;
             }
@@ -124,7 +124,7 @@
 
         storeTorrent: function () {
             var source = App.settings.tmpLocation + '/',
-                target = data_path + '/TorrentCollection/',
+                target = App.settings.torrentCollectionLocation + '/',
                 file,
                 _file;
 
@@ -142,8 +142,8 @@
                     win.debug('Torrent Collection: added', file);
                 }
             } else if (Settings.droppedMagnet) {
-                _file = Settings.droppedMagnet,
-                    file = formatMagnet(_file);
+                _file = Settings.droppedMagnet;
+                file = formatMagnet(_file);
 
                 if (this.isTorrentStored()) {
                     if (Settings.droppedStoredMagnet) {
@@ -193,7 +193,7 @@
             //Clean TorrentCache
             App.Providers.TorrentCache().clearTmpDir();
             App.Providers.TorrentCache()._checkTmpDir();
-        },
+        }
 
     });
 

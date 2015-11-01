@@ -85,6 +85,7 @@ Settings.connectionLimit = 100;
 Settings.dhtLimit = 500;
 Settings.streamPort = 0; // 0 = Random
 Settings.tmpLocation = path.join(os.tmpDir(), Settings.projectName);
+Settings.torrentCollectionLocation = path.join(data_path, 'TorrentCollection');
 Settings.databaseLocation = path.join(data_path, 'data');
 Settings.deleteTmpOnClose = true;
 Settings.automaticUpdating = true;
@@ -337,5 +338,5 @@ var AdvSettings = {
         }
         AdvSettings.set('version', currentVersion);
         AdvSettings.set('releaseName', gui.App.manifest.releaseName);
-    },
+    }
 };

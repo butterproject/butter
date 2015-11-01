@@ -1,9 +1,6 @@
 <div class="torrent-collection-container">
     <div class="margintop"></div>
     <div class="content">
-        <h1>Torrent Collection is disabled in this Butter build</h1>
-    </div>
-    <div class="content" style="display: none;">
 
         <div class="onlinesearch">
             <div class="engine-selector">
@@ -37,19 +34,21 @@
 
         <div class="torrents-info">
             <ul class="file-list">
-                <% _.each(fs.readdirSync(data_path + '/TorrentCollection/'), function(file, index) { %>
-                    <li class="file-item" data-index="<%=file.index%>" data-file="<%=index%>">
-                        <a><%=file%></a>
+                <% _.each(fs.readdirSync(Settings.torrentCollectionLocation), function(file, index) { %>
+                    <% if (file.indexOf('.torrent') !== -1 || file.indexOf('.magnet') !== -1) { %>
+                        <li class="file-item" data-index="<%=file.index%>" data-file="<%=index%>">
+                            <a><%=file%></a>
 
-                   <% if (file.indexOf('.torrent') !== -1) { %>
-                        <div class="item-icon torrent-icon"></div>
-                   <% } else { %>
-                        <div class="item-icon magnet-icon tooltipped" data-toogle="tooltip" data-placement="right" title="<%=i18n.__("Magnet link") %>"></div>
+                       <% if (file.indexOf('.torrent') !== -1) { %>
+                            <div class="item-icon torrent-icon"></div>
+                       <% } else { %>
+                            <div class="item-icon magnet-icon tooltipped" data-toogle="tooltip" data-placement="right" title="<%=i18n.__("Magnet link") %>"></div>
+                        <% } %>
+                            <i class="fa fa-trash-o item-delete tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Remove this torrent") %>"></i>
+                            <i class="fa fa-pencil item-rename tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Rename this torrent") %>"></i>
+                            </a>
+                        </li>
                     <% } %>
-                        <i class="fa fa-trash-o item-delete tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Remove this torrent") %>"></i>
-                        <i class="fa fa-pencil item-rename tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Rename this torrent") %>"></i>
-                        </a>
-                    </li>
                 <% }); %>
             </ul>
         </div>
@@ -64,6 +63,7 @@
             <div class="collection-delete fa fa-ban tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Flush entire collection") %>"></div>
             <div class="collection-open fa fa-folder-open-o tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Open Collection Directory") %>"></div>
             <div class="collection-import fa fa-level-down tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Import a Torrent") %>"></div>
+            <div class="collection-reload fa fa-refresh tooltipped" data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Reload Collection") %>"></div>
             <input class="collection-import-hidden" style="display:none" type="file" accept=".torrent"/>
         </div>
     </div>
