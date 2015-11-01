@@ -572,7 +572,7 @@ window.ondrop = function (e) {
         return file.indexOf('.torrent') !== -1;
     };
 
-    if (e.dataTransfer.files.length === 0) {
+    if (e.dataTransfer.files.length === 1) {
         var file = e.dataTransfer.files[0];
         if (file !== null && (checkTorrentFile(file.name) || file.name.indexOf('.srt') !== -1)) {
 
