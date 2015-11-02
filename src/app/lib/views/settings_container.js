@@ -13,7 +13,9 @@
         ui: {
             success_alert: '.success_alert',
             fakeTempDir: '#faketmpLocation',
-            tempDir: '#tmpLocation'
+            fakeTorrentCollectionLocation: '#fakeTorrentCollectionLocation',
+            tempDir: '#tmpLocation',
+            torrentCollectionDir: '#torrentCollectionLocation'
         },
 
         events: {
@@ -31,6 +33,9 @@
             'click .open-database-folder': 'openDatabaseFolder',
             'click .export-database': 'exportDatabase',
             'click .import-database': 'importDatabase',
+            'click #fakeTorrentCollectionLocation': 'showTorrentCollectionDirectoryDialog',
+            'click .open-torrentCollection-folder': 'openTorrentCollectionFolder',
+            'change #torrentCollectionLocation': 'updateTorrentCollectionDirectory',
             'click #authTrakt': 'connectTrakt',
             'click #unauthTrakt': 'disconnectTrakt',
             'click #connect-with-tvst': 'connectWithTvst',
@@ -252,6 +257,9 @@
             case 'tmpLocation':
                 tmpLocationChanged = true;
                 value = path.join(field.val(), Settings.projectName);
+                break;
+            case 'torrentCollectionLocation':
+                value = path.join(field.val());
                 break;
             case 'opensubtitlesUsername':
             case 'opensubtitlesPassword':
@@ -592,6 +600,10 @@
             this.ui.tempDir.click();
         },
 
+        showTorrentCollectionDirectoryDialog: function () {
+            this.ui.torrentCollectionDir.click();
+        },
+
         openTmpFolder: function () {
             win.debug('Opening: ' + App.settings['tmpLocation']);
             gui.Shell.openItem(App.settings['tmpLocation']);
@@ -612,6 +624,15 @@
         openDatabaseFolder: function () {
             win.debug('Opening: ' + App.settings['databaseLocation']);
             gui.Shell.openItem(App.settings['databaseLocation']);
+        },
+
+        openTorrentCollectionFolder: function () {
+            if (!App.settings['torrentCollectionLocation']) {
+                that.alertMessageFailed(i18n.__('Torrent Collection folder not set...'));
+            } else {
+                win.debug('Opening: ' + App.settings['torrentCollectionLocation']);
+                gui.Shell.openItem(App.settings['torrentCollectionLocation']);
+            }
         },
 
         exportDatabase: function (e) {
@@ -648,6 +669,12 @@
         updateCacheDirectory: function (e) {
             var field = $('#tmpLocation');
             this.ui.fakeTempDir.val = field.val();
+            this.render();
+        },
+
+        updateTorrentCollectionDirectory: function (e) {
+            var field = $('#torrentCollectionLocation');
+            this.ui.fakeTorrentCollectionLocation.val = field.val();
             this.render();
         },
 

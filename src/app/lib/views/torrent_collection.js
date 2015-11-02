@@ -2,8 +2,29 @@
     'use strict';
 
     var clipboard = gui.Clipboard.get(),
-        collection = path.join(data_path + '/TorrentCollection/'),
+        collection = false,
         files;
+
+    var deleteTorrentCollection = function (path) {
+        if (typeof path !== 'string') {
+            return;
+        }
+
+        try {
+            var files = [];
+            if (fs.existsSync(path)) {
+                files = fs.readdirSync(path);
+                files.forEach(function (file, index) {
+                    var curPath = path + '\/' + file;
+                    if (file.indexOf('.torrent') !== -1 || file.indexOf('.magnet') !== -1) {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+            }
+        } catch (err) {
+            win.error('deleteFolder()', err);
+        }
+    };
 
     var TorrentCollection = Backbone.Marionette.ItemView.extend({
         template: '#torrent-collection-tpl',
@@ -18,6 +39,7 @@
             'click .collection-delete': 'clearCollection',
             'click .collection-open': 'openCollection',
             'click .collection-import': 'importItem',
+            'click .collection-reload': 'reloadCollection',
             'click .notorrents-frame': 'importItem',
             'click .online-search': 'onlineSearch',
             'click .engine-icon': 'changeEngine',
@@ -27,15 +49,21 @@
         },
 
         initialize: function () {
-            if (!fs.existsSync(collection)) {
-                fs.mkdirSync(collection);
-                win.debug('TorrentCollection: data directory created');
+            collection = App.settings.torrentCollectionLocation;
+            if (!collection) {
+                this.alertMessageFailed(i18n.__('Torrent Collection folder not set...'));
+                this.files = [];
+            } else {
+                if (!fs.existsSync(collection)) {
+                    fs.mkdirSync(collection);
+                    win.debug('TorrentCollection: data directory created');
+                }
             }
-            this.files = fs.readdirSync(collection);
             this.searchEngine = Settings.onlineSearchEngine;
         },
 
         onShow: function () {
+            var that = this;
             Mousetrap.bind(['esc', 'backspace'], function (e) {
                 $('#filterbar-torrent-collection').click();
             });
@@ -43,7 +71,10 @@
             $('#movie-detail').hide();
             $('#nav-filters').hide();
 
-            this.render();
+            this.reloadCollection();
+            this.watch = fs.watch(collection, function (e, f) {
+                that.reloadCollection();
+            });
         },
 
         onRender: function () {
@@ -268,12 +299,11 @@
         openFileSelector: function (e) {
             var _file = $(e.currentTarget).context.innerText,
                 file = _file.substring(0, _file.length - 2); // avoid ENOENT
-
             if (_file.indexOf('.torrent') !== -1) {
                 Settings.droppedTorrent = file;
-                window.handleTorrent(collection + file);
+                window.handleTorrent(path.join(collection, file));
             } else { // assume magnet
-                var content = fs.readFileSync(collection + file, 'utf8');
+                var content = fs.readFileSync(path.join(collection, file), 'utf8');
                 Settings.droppedMagnet = content;
                 Settings.droppedStoredMagnet = file;
                 window.handleTorrent(content);
@@ -291,7 +321,7 @@
                 // stored
                 var _file = $(e.currentTarget.parentNode).context.innerText,
                     file = _file.substring(0, _file.length - 2); // avoid ENOENT
-                magnetLink = fs.readFileSync(collection + file, 'utf8');
+                magnetLink = fs.readFileSync(path.join(collection, file), 'utf8');
             } else {
                 // search result
                 magnetLink = $(e.currentTarget.parentNode).context.attributes['data-file'].value;
@@ -314,11 +344,10 @@
             var _file = $(e.currentTarget.parentNode).context.innerText,
                 file = _file.substring(0, _file.length - 2); // avoid ENOENT
 
-            fs.unlinkSync(collection + file);
+            fs.unlinkSync(path.join(collection, file));
             win.debug('Torrent Collection: deleted', file);
 
             // update collection
-            this.files = fs.readdirSync(collection);
             this.render();
         },
 
@@ -350,15 +379,14 @@
                 }
             }
 
-            if (!fs.existsSync(collection + newName) && newName) {
-                fs.renameSync(collection + file, collection + newName);
+            if (!fs.existsSync(path.join(collection, newName)) && newName) {
+                fs.renameSync(path.join(collection, file), path.join(collection, newName));
                 win.debug('Torrent Collection: renamed', file, 'to', newName);
             } else {
                 $('.notification_alert').show().text(i18n.__('This name is already taken')).delay(2500).fadeOut(400);
             }
 
             // update collection
-            this.files = fs.readdirSync(collection);
             this.render();
         },
 
@@ -372,14 +400,20 @@
         },
 
         clearCollection: function () {
-            deleteFolder(collection);
-            win.debug('Torrent Collection: delete all', collection);
+            deleteTorrentCollection(collection);
+            win.debug('Torrent Collection: delete all torrent and magnet from', collection);
             App.vent.trigger('torrentCollection:show');
         },
 
         openCollection: function () {
             win.debug('Opening: ' + collection);
             gui.Shell.openItem(collection);
+        },
+
+        reloadCollection: function () {
+            win.debug('Torrent Collection: reload', collection);
+            this.files = fs.readdirSync(collection);
+            this.render();
         },
 
         importItem: function () {
@@ -403,6 +437,7 @@
 
         onDestroy: function () {
             Mousetrap.unbind(['esc', 'backspace']);
+            this.watch.close();
             $('#movie-detail').show();
             $('#nav-filters').show();
         },

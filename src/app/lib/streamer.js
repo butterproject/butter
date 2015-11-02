@@ -5,6 +5,9 @@
     var BUFFERING_SIZE = 10 * 1024 * 1024;
 
     var readTorrent = require('read-torrent');
+    var peerflix = require('peerflix');
+    var path = require('path');
+    var crypto = require('crypto');
 
     var engine = null;
     var preload_engine = null;
@@ -143,13 +146,6 @@
                     if (err) {
                         win.error('error converting subtitles', err);
                         stateModel.get('streamInfo').set('subFile', null);
-                        App.vent.trigger('notification:show', new App.Model.Notification({
-                            title: i18n.__('Error converting subtitle'),
-                            body: i18n.__('Try another subtitle or drop one in the player'),
-                            showRestart: false,
-                            type: 'error',
-                            autoclose: true
-                        }));
                     } else {
                         App.Subtitles.Server.start(res);
                     }
@@ -209,7 +205,7 @@
                 var tmpFile = path.join(App.settings.tmpLocation, tmpFilename);
                 subtitles = torrent.subtitle;
 
-                var torrentPeerId = crypt.pseudoRandomBytes(10).toString('hex');
+                var torrentPeerId = crypto.pseudoRandomBytes(10).toString('hex');
 
                 win.debug('Preloading movie to %s', tmpFile);
 
@@ -244,9 +240,7 @@
 
     var Streamer = {
         start: function (model) {
-            var torrent = model.get('torrent');
-            var torrentUrl = torrent.url ? torrent.url : torrent.magnet;
-
+            var torrentUrl = model.get('torrent');
             var torrent_read = false;
             if (model.get('torrent_read')) {
                 torrent_read = true;
@@ -294,15 +288,6 @@
                                 hasSubtitles = true;
                                 downloadedSubtitles = true;
                                 win.warn('No subtitles returned');
-                                if (Settings.subtitle_language !== 'none') {
-                                    App.vent.trigger('notification:show', new App.Model.Notification({
-                                        title: i18n.__('No subtitles found'),
-                                        body: i18n.__('Try again later or drop a subtitle in the player'),
-                                        showRestart: false,
-                                        type: 'warning',
-                                        autoclose: true
-                                    }));
-                                }
                             }
                             hasSubtitles = true;
                         }).catch(function (err) {
@@ -383,9 +368,7 @@
                             App.vent.trigger('system:openFileSelector', fileModel);
                         } else {
                             model.set('defaultSubtitle', Settings.subtitle_language);
-                            var sub_data = {
-                                filename: torrent.name
-                            };
+                            var sub_data = {};
                             if (torrent.name) { // sometimes magnets don't have names for some reason
                                 var torrentMetadata;
                                 if (torrent.info && torrent.info.name) {
@@ -395,6 +378,7 @@
                                     .then(function (res) {
                                         if (res.error) {
                                             win.warn(res.error);
+                                            sub_data.filename = res.filename;
                                             title = res.filename;
                                             getSubtitles(sub_data);
                                             handleTorrent_fnc();
@@ -416,17 +400,20 @@
                                                 model.set('tvdb_id', res.show.tvdbid);
                                                 model.set('episode_id', res.show.episode.tvdbid);
                                                 model.set('imdb_id', res.show.imdbid);
-                                                model.set('episode', sub_data.episode);
-                                                model.set('season', sub_data.season);
+                                                model.set('episode', sub_data.season);
+                                                model.set('season', sub_data.episode);
                                                 title = res.show.title + ' - ' + i18n.__('Season %s', res.show.episode.season) + ', ' + i18n.__('Episode %s', res.show.episode.episode) + ' - ' + res.show.episode.title;
                                                 break;
                                             default:
+                                                sub_data.filename = res.filename;
                                             }
                                             getSubtitles(sub_data);
                                             handleTorrent_fnc();
                                         }
                                     })
                                     .catch(function (err) {
+                                        title = $.trim(torrent.name.replace('[rartv]', '').replace('[PublicHD]', '').replace('[ettv]', '').replace('[eztv]', '')).replace(/[\s]/g, '.');
+                                        sub_data.filename = title;
                                         win.error('An error occured while trying to get metadata and subtitles', err);
                                         getSubtitles(sub_data);
                                         handleTorrent_fnc(); //try and force play
@@ -461,7 +448,6 @@
             si.set('subtitle', {});
             si.set('type', 'video/mp4');
             si.set('device', model.get('device'));
-
             si.set('src', [{
                 type: 'video/mp4',
                 src: url

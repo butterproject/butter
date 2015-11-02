@@ -1,6 +1,14 @@
 (function (App) {
     'use strict';
-    var safeMagetTID = null,
+    var peerflix = require('peerflix'),
+        Q = require('q'),
+        path = require('path'),
+        mkdirp = require('mkdirp'),
+        rimraf = require('rimraf'),
+        fs = require('fs'),
+        request = require('request'),
+        zlib = require('zlib'),
+        safeMagetTID = null,
         stateModel = null;
 
 
@@ -263,7 +271,7 @@
             App.vent.trigger('stream:start', torrentStart);
         },
         handleError: function (err, torrent) {
-            win.error('TorrentCache.handleError(): ' + err, torrent);
+            win.error(err, torrent);
             handlers.updateState('Error resolving torrent.');
         },
         updateState: function (state) {
