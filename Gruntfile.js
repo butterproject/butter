@@ -22,9 +22,6 @@ var parseBuildPlatforms = function (argumentPlatform) {
     // Do some scrubbing to make it easier to match in the regexes bellow
     inputPlatforms = inputPlatforms.replace("darwin", "mac");
     inputPlatforms = inputPlatforms.replace(/;ia|;x|;arm/, "");
-    if (process.arch === "x64") {
-        inputPlatforms = inputPlatforms.replace("32", "64");
-    }
 
     var buildAll = /^all$/.test(inputPlatforms);
 
