@@ -493,6 +493,18 @@
         </div>
     </section>
 
+    <section id="torrentCollection" class="advanced">
+        <div class="title"><%= i18n.__("Torrent Collection Directory") %></div>
+        <div class="content">
+                <span>
+                    <p><%= i18n.__("Torrent Collection Directory") %></p>
+                    <input type="text" placeholder="<%= i18n.__("Torrent Collection Directory") %>" id="fakeTorrentCollectionLocation" value="<%= Settings.torrentCollectionLocation %>" readonly="readonly" size="65" />
+                    <i class="open-torrent-collection-folder fa fa-folder-open-o tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Torrent Collection Directory") %>"></i>
+                    <input type="file" name="torrentCollectionLocation" id="torrentCollectionLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.torrentCollectionLocation %>" />
+                </span>
+        </div>
+    </section>
+
     <section id="cache" class="advanced">
         <div class="title"><%= i18n.__("Cache Directory") %></div>
         <div class="content">

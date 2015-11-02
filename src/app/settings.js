@@ -86,6 +86,7 @@ Settings.dhtLimit = 500;
 Settings.streamPort = 0; // 0 = Random
 Settings.tmpLocation = path.join(os.tmpDir(), Settings.projectName);
 Settings.databaseLocation = path.join(data_path, 'data');
+Settings.torrentCollectionLocation = path.join(data_path, 'TorrentCollection');
 Settings.deleteTmpOnClose = true;
 Settings.automaticUpdating = true;
 Settings.events = true;
