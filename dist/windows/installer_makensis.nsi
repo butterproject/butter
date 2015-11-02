@@ -10,7 +10,7 @@ Unicode True
 !include "FileFunc.nsh"
 
 ;Detect paths style
-!if /FILEEXISTS "../../package.json"
+!if /fileexists "../../package.json"
     ;Unix-style paths detected!
     !define UNIX_PATHS
 !endif
@@ -25,10 +25,23 @@ Unicode True
 ; ------------------- ;
 !searchparse /file "..\..\package.json" '"name": "' APP_NAME '",'
 !searchreplace APP_NAME "${APP_NAME}" "-" " "
-!searchparse /file "..\..\package.json" '"version": "' PT_VERSION '",'
-!searchreplace PT_VERSION_CLEAN "${PT_VERSION}" "-" ".0"
+!searchparse /file "..\..\package.json" '"version": "' BT_VERSION '",'
+!searchreplace BT_VERSION_CLEAN "${BT_VERSION}" "-" ".0"
 !searchparse /file "..\..\package.json" '"homepage": "' APP_URL '",'
 !searchparse /file "..\..\package.json" '"name": "' DATA_FOLDER '",'
+
+; ------------------- ;
+;    Architecture     ;
+; ------------------- ;
+;Default to detected platform build if 
+;not defined by -DARCH= argument
+!ifndef ARCH
+    !if /fileexists "..\..\build\${APP_NAME}\win64\*.*"
+        !define ARCH "win64"
+    !else
+        !define ARCH "win32"
+    !endif
+!endif
 
 ; ------------------- ;
 ;      Settings       ;
@@ -36,16 +49,16 @@ Unicode True
 ;General Settings
 !define COMPANY_NAME "Butter Project"
 Name "${APP_NAME}"
-Caption "${APP_NAME} ${PT_VERSION}"
-BrandingText "${APP_NAME} ${PT_VERSION}"
+Caption "${APP_NAME} ${BT_VERSION}"
+BrandingText "${APP_NAME} ${BT_VERSION}"
 VIAddVersionKey "ProductName" "${APP_NAME}"
-VIAddVersionKey "ProductVersion" "${PT_VERSION}"
-VIAddVersionKey "FileDescription" "${APP_NAME} ${PT_VERSION} Installer"
-VIAddVersionKey "FileVersion" "${PT_VERSION}"
+VIAddVersionKey "ProductVersion" "${BT_VERSION}"
+VIAddVersionKey "FileDescription" "${APP_NAME} ${BT_VERSION} Installer"
+VIAddVersionKey "FileVersion" "${BT_VERSION}"
 VIAddVersionKey "CompanyName" "${COMPANY_NAME}"
 VIAddVersionKey "LegalCopyright" "${APP_URL}"
-VIProductVersion "${PT_VERSION_CLEAN}.0"
-OutFile "${APP_NAME}-${PT_VERSION}-${ARCH}-Setup.exe"
+VIProductVersion "${BT_VERSION_CLEAN}.0"
+OutFile "${APP_NAME}-${BT_VERSION}-${ARCH}-Setup.exe"
 CRCCheck on
 SetCompressor /SOLID lzma
 
@@ -420,7 +433,7 @@ Section
     ;Start Menu Shortcut
     RMDir /r "$SMPROGRAMS\${APP_NAME}"
     CreateDirectory "$SMPROGRAMS\${APP_NAME}"
-    CreateShortCut "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk" "$INSTDIR\nw.exe" "" "$INSTDIR\src\app\images\butter.ico" "" "" "" "${APP_NAME} ${PT_VERSION}"
+    CreateShortCut "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk" "$INSTDIR\nw.exe" "" "$INSTDIR\src\app\images\butter.ico" "" "" "" "${APP_NAME} ${BT_VERSION}"
     CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall ${APP_NAME}.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\src\app\images\butter_uninstall.ico" "" "" "" "Uninstall ${APP_NAME}"
 
     ;Desktop Shortcut
@@ -431,7 +444,7 @@ Section
     IntFmt $0 "0x%08X" $0
     WriteRegDWORD HKCU "${UNINSTALL_KEY}" "EstimatedSize" "$0"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayName" "${APP_NAME}"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayVersion" "${PT_VERSION}"
+    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayVersion" "${BT_VERSION}"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\src\app\images\butter.ico"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "Publisher" "${COMPANY_NAME}"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
@@ -532,5 +545,5 @@ FunctionEnd
 ;  Desktop Shortcut  ;
 ; ------------------ ;
 Function finishpageaction
-    CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\nw.exe" "" "$INSTDIR\src\app\images\butter.ico" "" "" "" "${APP_NAME} ${PT_VERSION}"
+    CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\nw.exe" "" "$INSTDIR\src\app\images\butter.ico" "" "" "" "${APP_NAME} ${BT_VERSION}"
 FunctionEnd
