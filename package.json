@@ -21,11 +21,11 @@
     "icon": "src/app/images/icon.png",
     "toolbar": false,
     "frame": false,
-    "min_width": 960,
-    "min_height": 520,
+    "min_width": 860,
+    "min_height": 420,
     "resizable": true,
     "show": false,
-    "position": "center"
+    "position": "random"
   },
   "dependencies": {
     "adm-zip": "0.4.7",
