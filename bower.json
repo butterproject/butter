@@ -1,5 +1,5 @@
 {
-    "name": "butter",
+    "name": "Butter",
     "dependencies": {
         "marionette": "~2.4.1",
         "bootstrap": "~3.3.4",
