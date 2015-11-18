@@ -13,7 +13,9 @@
         ui: {
             success_alert: '.success_alert',
             fakeTempDir: '#faketmpLocation',
-            tempDir: '#tmpLocation'
+            tempDir: '#tmpLocation',
+            fakeTorrentCollectionDir: '#fakeTorrentCollectionLocation',
+            torrentCollectionLocation: '#torrentCollectionLocation'
         },
 
         events: {
@@ -42,7 +44,10 @@
             'click #syncTrakt': 'syncTrakt',
             'click .qr-code': 'generateQRcode',
             'click #qrcode-overlay': 'closeModal',
-            'click #qrcode-close': 'closeModal'
+            'click #qrcode-close': 'closeModal',
+            'click #fakeTorrentCollectionLocation': 'showTorrentCollectionDirectoryDialog',
+            'click .open-torrent-collection-folder': 'openTorrentCollectionFolder',
+            'change #torrentCollectionLocation': 'updateTorrentCollectionDirectory'
         },
 
         onShow: function () {
@@ -256,6 +261,9 @@
             case 'opensubtitlesUsername':
             case 'opensubtitlesPassword':
                 return;
+            case 'torrentCollectionLocation':
+                value = path.join(field.val());
+                break;
             default:
                 win.warn('Setting not defined: ' + field.attr('name'));
             }
@@ -762,7 +770,23 @@
                 });
             }
             return ip;
+        },
+
+        showTorrentCollectionDirectoryDialog: function () {
+            this.ui.torrentCollectionLocation.click();
+        },
+
+        openTorrentCollectionFolder: function () {
+            win.debug('Opening: ' + App.settings['torrentCollectionLocation']);
+            gui.Shell.openItem(App.settings['torrentCollectionLocation']);
+        },
+
+        updateTorrentCollectionDirectory: function (e) {
+            var field = $('#torrentCollection');
+            this.ui.fakeTorrentCollectionDir.val = field.val();
+            this.render();
         }
+
     });
 
     App.View.Settings = Settings;
