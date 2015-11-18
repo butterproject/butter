@@ -38,7 +38,7 @@
     "iconv-lite": "0.x.x",
     "jschardet": "1.4.1",
     "json-rpc2": "1.0.2",
-    "kat-api": "0.x.x",
+    "kat-api": "9999.9999.9999",
     "markdown": "0.5.x",
     "memoizee": "0.x.x",
     "mkdirp": "*",
