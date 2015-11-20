@@ -22,23 +22,54 @@ If you clone the GitHub repository, you will need to build a number of assets us
 
 The [master](https://github.com/butterproject/butter-desktop) branch which contains the latest release.
 
-#### Quickstart:
 
-1. `npm install -g grunt-cli bower`
-1. `npm install`
-1. `grunt build`
-1. `grunt start`
+#### Debian installing instruction (Beginner Friendly)
 
-If you encounter trouble with the above method, you can try:
+Open terminal 
 
-1. `npm install -g bower grunt-cli` (Linux: you may need to run with `sudo`)
-1. `cd desktop`
-1. `npm install`
-1. `bower install`
-1. `grunt lang`
-1. `grunt nwjs`
-1. `grunt css`
-1. `grunt start`
+Run the following commands (You may need to use sudo if any of the commands dont work):
+
+- Run the update and upgrade to your system.
+
+`apt-get --yes update && apt-get --yes upgrade`
+
+- Install Curl, Git and Python globally (Skip this step if you already have them installed.)
+
+`apt-get --yes install -y curl git pyton`
+
+- Do a curl request to the following link 
+
+`curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash`
+
+- Install nodejs and npm globally Skip this step if you already have them installed.)
+
+`apt-get --yes install -y nodejs`
+`sudo npm install -g npm`
+
+- Check if nodejs and npm where installed
+
+`nodejs --version`
+`npm --version`
+
+- Clone the git repository
+
+` git clone https://github.com/butterproject/butter-desktop-angular.git /wanteddirectory/`
+
+- Install bower and Grunt
+
+```cd /wanteddirectory/
+npm install -g bower grunt-cli
+npm install
+bower install``` 
+
+
+- Build the application
+
+`grunt build`
+
+- Start the application 
+
+`grunt start`
 
 Optionally, you may simply run `./make_butter.sh` if you are on a linux or mac based operating system.
 
@@ -89,3 +120,4 @@ You should have received a copy of the GNU General Public License along with thi
 
 Copyright (c) 2015 Butter Project - Released under the
 [GPL v3 license](LICENSE.txt).
+
