@@ -107,7 +107,7 @@
 
             if (this.searchEngine === 'KAT') {
 
-                var kat = require('kat-api');
+                var kat = require('kat-api-json');
                 kat.search({
                     query: input,
                     category: category
