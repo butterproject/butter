@@ -83,7 +83,7 @@
     "grunt-githooks": "0.x.x",
     "grunt-jsbeautifier": "*",
     "grunt-nw-builder": "^2.0.0",
-    "grunt-shell": "1.x.x",
+    "grunt-shell": "1.1.2",
     "load-grunt-tasks": "3.3.0",
     "nw-gyp": "0.x.x",
     "stylus": "0.52.4"
