@@ -73,7 +73,7 @@
   "devDependencies": {
     "bower": "1.6.5",
     "grunt": "0.4.5",
-    "grunt-bower-clean": "0.x.x",
+    "grunt-bower-clean": "0.2.2",
     "grunt-contrib-clean": "0.x.x",
     "grunt-contrib-compress": "0.x.x",
     "grunt-contrib-jshint": "0.x.x",
