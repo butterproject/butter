@@ -45,7 +45,7 @@
     "mv": "2.x.x",
     "nedb": "1.5.0",
     "node-captions": "0.4.6",
-    "node-tvdb": "1.6.0",
+    "node-tvdb": "1.6.1",
     "node-webkit-fdialogs": "latest",
     "nodecast-js": "git+https://github.com/gyzerok/nodecast-js",
     "nw": "^0.12.3",
