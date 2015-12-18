@@ -67,7 +67,7 @@
         "underscore": "1.x.x",
         "upnp-mediarenderer-client": "1.x.x",
         "urijs": "1.x.x",
-        "wcjs-prebuilt": "*",
+        "wcjs-prebuilt": "2.1.0",
         "wcjs-player": "git+https://github.com/butterproject/wcjs-player.git",
         "xmlbuilder": "4.2.0"
     },
