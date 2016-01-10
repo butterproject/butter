@@ -31,7 +31,7 @@ The [master](https://github.com/butterproject/butter-desktop) branch which conta
 
 If you encounter trouble with the above method, you can try:
 
-1. `npm install -g bower grunt-cli` (Linux: you may need to run with `sudo`)
+  1. `npm install -g bower grunt-cli` (Linux: [See this link for permission problems](http://stackoverflow.com/a/24404451/1329429))
 1. `cd desktop`
 1. `npm install`
 1. `bower install`
