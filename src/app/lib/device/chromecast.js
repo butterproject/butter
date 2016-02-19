@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var chromecast = require('chromecast-js'),
+    var chromecast = require('chromecast-api'),
         collection = App.Device.Collection;
 
     var Chromecast = App.Device.Generic.extend({
