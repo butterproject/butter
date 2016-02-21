@@ -52,7 +52,7 @@ Keep track of Butter development and community activity.
 * Follow Butter on [Twitter] (https://twitter.com/butterproject), [Facebook] (https://www.facebook.com/ButterProjectOrg/) and [Google+](https://plus.google.com/communities/111003619134556931561).
 * Read and subscribe to [The Official Butter Blog](http://blog.butterproject.org).
 * Join in discussions on the [Butter Forum](http://discuss.butterproject.org).
-* Connect with us on IRC at `#butterproject` on freenode ([web access](http://webchat.freenode.net/?channels=butterproject))
+* Connect with us on IRC at `#butterproject` on freenode ([web access](http://webchat.freenode.net/?channels=butterproject)).
 
 ##Screenshots
 ![Butter](https://cloud.githubusercontent.com/assets/8317250/10714437/b1e1dc8c-7b32-11e5-9c25-d9fbd5b2f3bd.png)
