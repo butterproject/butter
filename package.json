@@ -82,7 +82,7 @@
         "grunt-bower-clean": "0.x.x",
         "grunt-contrib-clean": "0.x.x",
         "grunt-contrib-compress": "0.x.x",
-        "grunt-contrib-jshint": "0.x.x",
+        "grunt-contrib-jshint": "1.0.0",
         "grunt-contrib-stylus": "0.22.0",
         "grunt-contrib-watch": "0.6.x",
         "grunt-exec": "0.4.x",
