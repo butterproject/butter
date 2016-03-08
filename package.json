@@ -74,7 +74,7 @@
     "underscore": "1.x.x",
     "upnp-mediarenderer-client": "1.x.x",
     "urijs": "1.x.x",
-    "xmlbuilder": "4.1.0"
+    "xmlbuilder": "5.0.1"
   },
   "devDependencies": {
     "bower": "1.7.x",
