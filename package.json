@@ -12,7 +12,7 @@
   "license": "GPL-3.0",
   "main": "app://host/src/app/index.html",
   "version": "0.3.8-5a",
-  "releaseName": "There's nothing on TV",
+  "releaseName": "There's nothing better on TV",
   "scripts": {
     "prestart": "npm install && grunt build && grunt start",
     "postinstall": "node_modules/.bin/bower install --config.interactive=false && grunt setup",
@@ -26,7 +26,7 @@
     "toolbar": false,
     "frame": false,
     "min_width": 960,
-    "min_height": 520,
+    "min_height": 540,
     "resizable": true,
     "show": false,
     "position": "center"
