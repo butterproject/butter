@@ -54,7 +54,7 @@
     "mv": "2.x.x",
     "nedb": "1.4.0",
     "node-captions": "0.4.6",
-    "node-tvdb": "1.6.x",
+    "node-tvdb": "1.6.5",
     "node-webkit-fdialogs": "latest",
     "nodecast-js": "^1.0.1",
     "opensubtitles-api": "^2.3.x",
@@ -73,7 +73,7 @@
     "temp": "0.x.x",
     "torrent-tracker-health": "0.x.x",
     "trakt.tv": "1.x.x",
-    "trakt.tv-ondeck":  "0.x",
+    "trakt.tv-ondeck": "0.x",
     "underscore": "1.x.x",
     "upnp-mediarenderer-client": "1.x.x",
     "urijs": "1.x.x"
