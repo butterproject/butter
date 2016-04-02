@@ -78,6 +78,9 @@
     }
 
     App.bootstrapPromise = loadNpmSettings()
+        .then(function (){
+            Settings.tmpLocation = path.join(os.tmpDir(), Settings.projectName);
+        })
         .then(loadProviders)
         .then(function (values) {
             return _.filter(_.keys(Settings.providers).map(function (type) {
