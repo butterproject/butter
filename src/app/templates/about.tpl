@@ -19,16 +19,16 @@
         <div class="text-about">
             <div class="full-text">
                 <%= i18n.__("%s is the result of many developers and designers putting a bunch of APIs together to make the experience of watching torrent movies as simple as possible.", Settings.projectName) %><br/>
-                <%= i18n.__("We are an open source project. We are from all over the world. We love our movies. And boy, do we love popcorn.") %>
+                <%= i18n.__("We are an open source project. We are from all over the world. We love our movies. And boy, do we love our Popcorn.") %>
             </div>
         </div>
 
         <div class="icons_social">
             <a href="<%= Settings.projectUrl %>" data-toggle="tooltip" data-placement="top" title="<%= Settings.projectUrl %>" class='links site_icon'></span></a>
-            <a href='http://twitter.com/<%= Settings.projectTwitter %>' data-toggle="tooltip" data-placement="top" title="twitter.com/<%= Settings.projectTwitter %>" class='links twitter_icon'></span></a>
-            <a href='http://www.fb.com/<%= Settings.projectFacebook %>' data-toggle="tooltip" data-placement="top" title="fb.com/<%= Settings.projectFacebook %>" class='links facebook_icon'></span></a>
-            <a href='http://plus.google.com/+<%= Settings.projectGooglePlus %>/posts' data-toggle="tooltip" data-placement="top" title="plus.google.com/+<%= Settings.projectGooglePlus %>" class='links google_icon'></span></a>
-            <a href='<%= Settings.projectUrl %>' data-toggle="tooltip" data-placement="top" title="<%= Settings.projectUrl %>" class='links gitlab_icon'></span></a>
+            <a href='https://twitter.com/<%= Settings.projectTwitter %>' data-toggle="tooltip" data-placement="top" title="twitter.com/<%= Settings.projectTwitter %>" class='links twitter_icon'></span></a>
+            <a href='https://www.facebook.com/<%= Settings.projectFacebook %>' data-toggle="tooltip" data-placement="top" title="facebook.com/<%= Settings.projectFacebook %>" class='links facebook_icon'></span></a>
+            <a href='https://plus.google.com/+<%= Settings.projectGooglePlus %>/posts' data-toggle="tooltip" data-placement="top" title="plus.google.com/+<%= Settings.projectGooglePlus %>" class='links google_icon'></span></a>
+            <a href='<%= Settings.projectUrl %>' data-toggle="tooltip" data-placement="top" title="<%= Settings.projectUrl %>" class='links github_icon'></span></a>
             <a href='<%= Settings.projectBlog %>' data-toggle="tooltip" data-placement="top" title="<%= Settings.projectBlog %>" class='links blog_icon'></span></a>
             <a href='<%= Settings.projectForum %>' data-toggle="tooltip" data-placement="top" title="<%= Settings.projectForum %>" class='links forum_icon'></span></a>
         </div>
