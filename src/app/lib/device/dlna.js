@@ -90,7 +90,6 @@
         },
 
         seekPercentage: function (percentage) {
-          console.log(this);
             win.info('DLNA: seek percentage %s%', percentage.toFixed(2));
             var newCurrentTime = this.player._status.duration / 100 * percentage;
             this.seekTo(newCurrentTime.toFixed());
@@ -115,7 +114,6 @@
           }
             // If this is the active device, propagate the status event.
             if (collection.selected.id === this.id) {
-              console.log(status);
                 App.vent.trigger('device:status', status);
             }
         }
