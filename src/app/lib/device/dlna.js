@@ -33,26 +33,10 @@
             if (subtitle) {
                 media = {
                     title: streamModel.get('title'),
-                    images: streamModel.get('cover'),
                     subtitles: ['http:' + url.split(':')[1] + ':9999/subtitle.vtt'],
-
-                    subtitles_style: {
-                        backgroundColor: AdvSettings.get('subtitle_decoration') === 'Opaque Background' ? '#000000FF' : '#00000000', // color of background - see http://dev.w3.org/csswg/css-color/#hex-notation
-                        foregroundColor: AdvSettings.get('subtitle_color') + 'ff', // color of text - see http://dev.w3.org/csswg/css-color/#hex-notation
-                        edgeType: AdvSettings.get('subtitle_decoration') === 'Outline' ? 'OUTLINE' : 'NONE', // border of text - can be: "NONE", "OUTLINE", "DROP_SHADOW", "RAISED", "DEPRESSED"
-                        edgeColor: '#000000FF', // color of border - see http://dev.w3.org/csswg/css-color/#hex-notation
-                        fontScale: ((parseFloat(AdvSettings.get('subtitle_size')) / 28) * 1.3).toFixed(1), // size of the text - transforms into "font-size: " + (fontScale*100) +"%"
-                        fontStyle: 'NORMAL', // can be: "NORMAL", "BOLD", "BOLD_ITALIC", "ITALIC",
-                        fontFamily: 'Helvetica',
-                        fontGenericFamily: 'SANS_SERIF', // can be: "SANS_SERIF", "MONOSPACED_SANS_SERIF", "SERIF", "MONOSPACED_SERIF", "CASUAL", "CURSIVE", "SMALL_CAPITALS",
-                        windowColor: '#00000000', // see http://dev.w3.org/csswg/css-color/#hex-notation
-                        windowRoundedCornerRadius: 0, // radius in px
-                        windowType: 'NONE' // can be: "NONE", "NORMAL", "ROUNDED_CORNERS"
-                    }
                 };
             } else {
                 media = {
-                    images: cover,
                     title: streamModel.get('title')
                 };
             }
