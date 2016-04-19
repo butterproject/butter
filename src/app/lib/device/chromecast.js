@@ -58,18 +58,20 @@
             }
             win.info('Chromecast: play ' + url + ' on \'' + this.get('name') + '\'');
             win.info('Chromecast: connecting to ' + this.device.host);
-
-  				self.device.play(url, media, function (err, status) {
-  					if (err) {
-  						win.error('chromecast.play error: ', err);
-  					} else {
+            self.device.play(url, media, function (err, status) {
+                if (err) {
+                    win.error('chromecast.play error: ', err);
+                    
+                } else {
   						win.info('Playing ' + url + ' on ' + self.get('name'));
   						self.set('loadedMedia', status.media);
   					}
   				});
-  this.device.on('status', function (status) {
+                this.device.on('status', function (status) {
                 self._internalStatusUpdated(status);
-            });
+                    
+                });
+            
         },
 
         pause: function () {
@@ -127,7 +129,7 @@
 
         updateStatus: function () {
             var self = this;
-            console.log(this.get('player'));
+        
             this.get('device').status(function (err, status) {
                 if (err) {
                     return win.info('Chromecast.updateStatus:Error', err);
@@ -142,15 +144,15 @@
             }
             // If this is the active device, propagate the status event.
             if (collection.selected.id === this.id) {
-              console.log(status);
+              
                 App.vent.trigger('device:status', status);
             }
         }
     });
 
 
-chromecasts.update();
-chromecasts.on('update', function (player) {
+        chromecasts.update();
+        chromecasts.on('update', function (player) {
           collection.add(new Chromecast({
             device: player
         }));
