@@ -164,10 +164,10 @@
             if (status.playerState !== undefined  &&  status.duration !== undefined && streamInfo.get('player').get('type') === 'dlna')
              {
                 // Update playingbar width
-                var playedPercent = status.currentTime / status.duration * 100;
-                this.ui.playingbar.css('width', playedPercent.toFixed(1) + '%');
+                var playedPercent2 = status.currentTime / status.duration * 100;
+                this.ui.playingbar.css('width', playedPercent2.toFixed(1) + '%');
                 win.debug('ExternalStream: %s: %ss / %ss (%s%)', status.playerState,
-                    status.currentTime.toFixed(1), status.duration.toFixed(), playedPercent.toFixed(1));
+                    status.currentTime.toFixed(1), status.duration.toFixed(), playedPercent2.toFixed(1));
             }
             if (!this.extPlayerStatusUpdater && status.playerState === 'PLAYING') {
                 // First PLAYING state. Start requesting device status update every 5 sec
