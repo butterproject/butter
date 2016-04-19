@@ -1,9 +1,9 @@
 (function (App) {
     'use strict';
-    var Browser = require('nodecast-js');
-    var MediaRendererClient = require('upnp-mediarenderer-client');
+    var dlnacasts = require('dlnacasts')();
+    var xmlb = require('xmlbuilder');
     var collection = App.Device.Collection;
-    var browser = new Browser();
+
 
     var makeID = function (baseID) {
         return 'dlna-' + baseID.replace('-', '');
@@ -17,74 +17,144 @@
         makeID: makeID,
 
         initialize: function (attrs) {
-            this.device = attrs.device;
-            this.client = new MediaRendererClient(this.device.xml);
-            this.attributes.name = this.device.name;
-            this.attributes.address = this.device.host;
+            this.player = attrs.player;
+            this.attributes.name = this.player.name;
+            this.attributes.address = this.player.host;
         },
 
         play: function (streamModel) {
-            var metadata = {
-                title: 'Butter DLNA', // upnp-mediarendered-client object
-                type: 'video',
-                url: streamModel.get('src'),
-                protocolInfo: 'http-get:*:video/mp4:*'
-            };
-
-            if (streamModel.get('subFile')) { // inject subtitles
-                metadata.subtitlesUrl = 'http:' + metadata.url.split(':')[1] + ':9999/video.srt';
+            var url = streamModel.get('src');
+            var url_video = url;
+            var url_subtitle = 'http:' + url.split(':')[1] + ':9999/video.srt';
+            var metadata = null;
+            var subtitle = streamModel.get('subFile');
+            if (subtitle) {
+                metadata = xmlb.create('DIDL-Lite', {
+                        'headless': true
+                    })
+                    .att({
+                        'xmlns': 'urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/',
+                        'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+                        'xmlns:upnp': 'urn:schemas-upnp-org:metadata-1-0/upnp/',
+                        'xmlns:dlna': 'urn:schemas-dlna-org:metadata-1-0/',
+                        'xmlns:sec': 'http://www.sec.co.kr/',
+                        'xmlns:xbmc': 'urn:schemas-xbmc-org:metadata-1-0/'
+                    })
+                    .ele('item', {
+                        'id': '0',
+                        'parentID': '-1',
+                        'restricted': '1'
+                    })
+                    .ele('dc:title', {}, streamModel.get('title'))
+                    .insertAfter('res', {
+                        'protocolInfo': 'http-get:*:video/mp4:*',
+                        'xmlns:pv': 'http://www.pv.com/pvns/',
+                        'pv:subtitleFileUri': url_subtitle,
+                        'pv:subtitleFileType': 'srt'
+                    }, url_video)
+                    .insertAfter('res', {
+                        'protocolInfo': 'http-get:*:text/srt:'
+                    }, url_subtitle)
+                    .insertAfter('res', {
+                        'protocolInfo': 'http-get:*:smi/caption'
+                    }, url_subtitle)
+                    .insertAfter('sec:CaptionInfoEx', {
+                        'sec:type': 'srt'
+                    }, url_subtitle)
+                    .insertAfter('sec:CaptionInfo', {
+                        'sec:type': 'srt'
+                    }, url_subtitle)
+                    .insertAfter('upnp:class', {}, 'object.item.videoItem.movie')
+                    .end({
+                        pretty: false
+                    });
+            } else {
+                metadata = xmlb.create('DIDL-Lite', {
+                        'headless': true
+                    })
+                    .att({
+                        'xmlns': 'urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/',
+                        'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+                        'xmlns:upnp': 'urn:schemas-upnp-org:metadata-1-0/upnp/',
+                        'xmlns:dlna': 'urn:schemas-dlna-org:metadata-1-0/',
+                        'xmlns:sec': 'http://www.sec.co.kr/',
+                        'xmlns:xbmc': 'urn:schemas-xbmc-org:metadata-1-0/'
+                    })
+                    .ele('item', {
+                        'id': '0',
+                        'parentID': '-1',
+                        'restricted': '1'
+                    })
+                    .ele('dc:title', {}, streamModel.get('title'))
+                    .insertAfter('res', {
+                        'protocolInfo': 'http-get:*:video/mp4:*',
+                    }, url_video)
+                    .insertAfter('upnp:class', {}, 'object.item.videoItem.movie')
+                    .end({
+                        pretty: false
+                    });
             }
-
-            this.client.load(metadata.url, {
+            this.player.play(url_video, {
                 metadata: metadata,
                 autoplay: true,
+
             }, function (err, result) {
                 if (err) {
                     throw err;
                 }
+
             });
+            
+
         },
 
         stop: function () {
-            this.client.stop();
+            this.player.stop();
         },
 
         pause: function () {
-            this.client.pause();
+            this.player.pause();
         },
 
         forward: function () {
-            this.client.seek(30);
+            this.player.seek(30);
         },
 
         backward: function () {
-            this.client.seek(-30);
+            this.player.seek(-30);
         },
 
+        seek: function (seconds) {
+            win.info('DLNA: seek %s', seconds);
+            this.get('player').seek(seconds, function (err, status) {
+                if (err) {
+                    win.error('DLNA.seek:Error', err);
+                }
+            });
+        },
+
+
         unpause: function () {
-            this.client.play();
+            this.player.play();
         }
     });
 
 
-    browser.onDevice(function (device) {
-        device.onError(function (err) {
-            win.error('DNLA device error', err);
-        });
-
+    dlnacasts.on('update', function (player) {
         if (collection.where({
-                id: device.host
+                id: player.host
             }).length === 0) {
-            win.info('Found DLNA Device: %s at %s', device.name, device.host);
+            win.info('Found DLNA Device: %s at %s', player.name, player.host);
             collection.add(new Dlna({
-                id: device.host,
-                device: device
+                id: player.host,
+                player: player
             }));
         }
     });
 
     win.info('Scanning: Local Network for DLNA devices');
-    browser.start();
+    dlnacasts.update();
+
 
     App.Device.Dlna = Dlna;
 })(window.App);
