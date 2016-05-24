@@ -80,7 +80,7 @@
         "underscore": "1.x.x",
         "upnp-mediarenderer-client": "1.x.x",
         "urijs": "1.x.x",
-        "xmlbuilder": "4.1.0"
+        "xmlbuilder": "8.2.2"
     },
     "devDependencies": {
         "bower": "^1.7.9",
