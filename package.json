@@ -42,7 +42,7 @@
         "butter-provider-archive": "git+https://github.com/butterproviders/butter-provider-archive",
         "adm-zip": "0.4.7",
         "airplay-js": "git+https://github.com/guerrerocarlos/node-airplay-js.git",
-        "async": "1.5.x",
+        "async": "2.0.0",
         "chromecast-js": "git+https://github.com/captainyarr/chromecast-js.git",
         "gitlab": "1.4.1",
         "defer-request": "0.0.2",
