@@ -439,7 +439,7 @@
                                     imdb_id: that.model.get('imdb_id').toString(),
                                 }))
                                 .then(function (res) {
-                                    if (res != null && res.length > 0) {
+                                    if (res !== null && res.length > 0) {
                                         return Database.updateTVShow(data);
                                     } else {
                                         return Database.addTVShow(data);
