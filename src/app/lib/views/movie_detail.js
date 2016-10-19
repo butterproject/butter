@@ -232,7 +232,6 @@
                 $('.sub-dropdown').addClass('open');
                 $('.sub-dropdown-arrow').addClass('down');
             }
-            var self = this;
             $('.flag-container').fadeIn();
         },
 

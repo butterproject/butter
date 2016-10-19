@@ -388,7 +388,7 @@
 
             $('#authTrakt').hide();
             $('#authTraktCode').show();
-            
+
             App.Trakt.oauth.authenticate()
                 .finally(that.render);
         },
