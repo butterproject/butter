@@ -35,7 +35,6 @@
                     title: streamModel.get('title').substring(0,50),
                     images: streamModel.get('cover'),
                     subtitles: ['http:' + url.split(':')[1] + ':9999/subtitle.vtt'],
-
                     textTrackStyle: {
                         backgroundColor: AdvSettings.get('subtitle_decoration') === 'Opaque Background' ? '#000000FF' : '#00000000', // color of background - see http://dev.w3.org/csswg/css-color/#hex-notation
                         foregroundColor: AdvSettings.get('subtitle_color') + 'ff', // color of text - see http://dev.w3.org/csswg/css-color/#hex-notation
@@ -60,13 +59,13 @@
             win.info('Chromecast: connecting to ' + this.device.host);
 
             self.device.play(url, media, function (err, status) {
-  					if (err) {
-  						win.error('chromecast.play error: ', err);
-  					} else {
-  						win.info('Playing ' + url + ' on ' + self.get('name'));
-  						self.set('loadedMedia', status.media);
-  					}
-  				});
+                if (err) {
+                    win.error('chromecast.play error: ', err);
+                } else {
+                    win.info('Playing ' + url + ' on ' + self.get('name'));
+                    self.set('loadedMedia', status.media);
+                }
+            });
           this.device.on('status', function (status) {
                 self._internalStatusUpdated(status);
             });
