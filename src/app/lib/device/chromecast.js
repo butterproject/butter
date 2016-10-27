@@ -59,7 +59,7 @@
             win.info('Chromecast: play ' + url + ' on \'' + this.get('name') + '\'');
             win.info('Chromecast: connecting to ' + this.device.host);
 
-  				self.device.play(url, media, function (err, status) {
+            self.device.play(url, media, function (err, status) {
   					if (err) {
   						win.error('chromecast.play error: ', err);
   					} else {
@@ -141,20 +141,20 @@
             }
             // If this is the active device, propagate the status event.
             if (collection.selected.id === this.id) {
-              console.log(status);
+  
                 App.vent.trigger('device:status', status);
             }
         }
     });
 
-win.info('Scanning: Local Network for Chromecast devices');
+    win.info('Scanning: Local Network for Chromecast devices');
 chromecasts.update();
 chromecasts.on('update', function (player) {
-    win.info('Found Chromecast Device Device: %s at %s', player.name, player.host);
-          collection.add(new Chromecast({
-            device: player
-        }));
-    });
+  win.info('Found Chromecast Device Device: %s at %s', player.name, player.host);
+  collection.add(new Chromecast({
+    device: player
+  }));
+});
 
     App.Device.Chromecast = Chromecast;
 })(window.App);
