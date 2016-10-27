@@ -67,7 +67,7 @@
   						self.set('loadedMedia', status.media);
   					}
   				});
-  this.device.on('status', function (status) {
+          this.device.on('status', function (status) {
                 self._internalStatusUpdated(status);
             });
         },
@@ -148,13 +148,13 @@
     });
 
     win.info('Scanning: Local Network for Chromecast devices');
-chromecasts.update();
-chromecasts.on('update', function (player) {
-  win.info('Found Chromecast Device Device: %s at %s', player.name, player.host);
-  collection.add(new Chromecast({
-    device: player
-  }));
-});
+    chromecasts.update();
+    chromecasts.on('update', function (player) {
+      win.info('Found Chromecast Device Device: %s at %s', player.name, player.host);
+      collection.add(new Chromecast({
+        device: player
+      }));
+    });
 
     App.Device.Chromecast = Chromecast;
 })(window.App);
