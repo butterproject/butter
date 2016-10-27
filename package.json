@@ -57,7 +57,6 @@
         "nedb": "1.4.0",
         "node-captions": "0.4.6",
         "node-webkit-fdialogs": "latest",
-        "nodecast-js": "^1.0.1",
         "opensubtitles-api": "^3.1.0",
         "peerflix": "^0.35.0",
         "q": "2.0.3",
@@ -75,7 +74,7 @@
         "trakt.tv": "2.0.0",
         "trakt.tv-ondeck": "0.x",
         "underscore": "1.x.x",
-        "upnp-mediarenderer-client": "1.x.x",
+        "dlnacasts": "0.1.0",
         "urijs": "1.x.x"
     },
     "devDependencies": {
