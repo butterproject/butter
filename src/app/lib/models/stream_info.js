@@ -3,81 +3,81 @@
 
     var StreamInfo = Backbone.Model.extend({
         initialize: function () {
-            var engine = this.get('engine');
-
-            var self = this;
-
-            engine.once('ready', function () {
-                var size = 0;
-
-                if (self.get('file_index')) {
-                    size = engine.files[self.get('file_index')].length; // torrent with multi-files
-                } else {
-                    engine.files.forEach(function (file) { // pct torrent
-                        size += file.length || 0;
-                    });
-                }
-
-                self.set('videoFile', path.join(engine.path, engine.server.index.path));
-                self.set('size', size);
-            });
 
             this.on('change:size', function () {
-                self.set('sizeFormatted', Common.fileSize(self.get('size')));
-            });
+                this.set('sizeFormatted', Common.fileSize(this.get('size')));
+            }.bind(this));
 
             this.set('size', 0);
         },
 
+        selectFile: function () {
+
+            var info = this.get('info'),
+                torrent = this.get('torrent'),
+                size = 0;
+
+            if (torrent.file_index) {
+                size = info.files[torrent.file_index].length;
+            } else {
+                info.files.forEach(function (file) {
+                    size += file.length;
+                });
+            }
+
+            var videoFile = _.max(info.files, function (file) {
+                return file.length;
+            });
+
+            this.set('videoFile', path.join(info.path, videoFile.path));
+            this.set('size', size);
+        },
+
         updateStats: function () {
-            var active = function (wire) {
-                return !wire.peerChoking;
-            };
-            var engine = this.get('engine');
-            var swarm = engine.swarm;
+
+            var info = this.get('info');
+
             var BUFFERING_SIZE = 10 * 1024 * 1024;
             var converted_speed = 0;
             var converted_downloaded = 0;
             var buffer_percent = 0;
 
-            var upload_speed = swarm.uploadSpeed(); // upload speed
+            var upload_speed = info.uploadSpeed; // upload speed
             var final_upload_speed = Common.fileSize(0) + '/s';
             if (!isNaN(upload_speed) && upload_speed !== 0) {
                 final_upload_speed = Common.fileSize(upload_speed) + '/s';
             }
 
-            var download_speed = swarm.downloadSpeed(); // download speed
+            var download_speed = info.downloadSpeed; // download speed
             var final_download_speed = Common.fileSize(0) + '/s';
             if (!isNaN(download_speed) && download_speed !== 0) {
                 final_download_speed = Common.fileSize(download_speed) + '/s';
             }
 
-            var downloaded = swarm.downloaded || 0; // downloaded
-            if (swarm.cachedDownload) {
-                downloaded += swarm.cachedDownload;
-            }
+            var downloaded = info.downloaded || 0; // downloaded
+
             var final_downloaded = Common.fileSize(0);
             var final_downloaded_percent = 0;
             if (downloaded !== 0) {
                 final_downloaded = Common.fileSize(downloaded);
-                final_downloaded_percent = 100 / this.get('size') * downloaded;
+                final_downloaded_percent = info.progress * 100; //100 / this.get('size') * downloaded;
             }
 
             if (final_downloaded_percent >= 100) {
                 final_downloaded_percent = 100;
             }
 
-            var downloadTimeLeft = Math.round((this.get('size') - downloaded) / swarm.downloadSpeed()); // time to wait before download complete
+            var downloadTimeLeft = info.timeRemaining; // time to wait before download complete
             if (isNaN(downloadTimeLeft) || downloadTimeLeft < 0) {
                 downloadTimeLeft = 0;
             } else if (!isFinite(downloadTimeLeft)) { // infinite
                 downloadTimeLeft = undefined;
             }
 
-            this.set('pieces', swarm.piecesGot);
+            this.set('pieces', 0);
             this.set('downloaded', downloaded);
-            this.set('active_peers', swarm.wires.filter(active).length);
-            this.set('total_peers', swarm.wires.length);
+            this.set('active_peers', info.numPeers);
+            this.set('total_peers', info.numPeers);
 
             this.set('uploadSpeed', final_upload_speed); // variable for Upload Speed
             this.set('downloadSpeed', final_download_speed); // variable for Download Speed

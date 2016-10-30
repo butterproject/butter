@@ -51,7 +51,7 @@ var
     // Torrent engines
     peerflix = require('peerflix'),
 
-    WebTorrent = require('webtorrent');
+    // WebTorrent = require('webtorrent');
 
     // NodeJS
     child = require('child_process');

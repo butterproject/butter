@@ -1,7 +1,8 @@
 (function (App) {
     'use strict';
 
-    var readTorrent = require('read-torrent');
+    var WebTorrent = require('webtorrent'),
+        readTorrent = require('read-torrent');
 
     var BUFFERING_SIZE = 10 * 1024 * 1024;
 
@@ -9,30 +10,39 @@
 
     var WebTorrentStreamer = function () {
 
+        // WebTorrent instance
         this.webtorrent = null;
+
+        // Torrent Backbone Model
         this.torrentModel = null;
+
+        // State Backbone Model
         this.stateModel = null;
 
+        // Stream Info Backbone Model, which keeps showing ratio/download/upload info.
+        // See models/stream_info.js
+        this.streamInfo = null;
+
+        // Files encountered on torrent - Collection of Torrent instances
         this.torrentFiles = [];
 
+        // Boolean to indicate if initial buffer is ready
         this.bufferReady = false;
+
+        // Boolean to indicate if subtitles are already downloaded and ready to use
         this.subtitleReady = false;
 
+        // Interval controller for StreamInfo view, which keeps showing ratio/download/upload info.
+        // See models/stream_info.js
         this.updateStatsInterval = null;
+
+        // Http server to stream video
         this.server = null;
 
     };
 
     WebTorrentStreamer.prototype = {
 
-        // *lancar estado inicial
-        // *lancar evento de iniciado "stream:started"
-        // *buscar legendas
-        // *depois de obter as legendas, iniciar o stream
-        // *converter legendas
-        // *lancar estados
-        // *torrent colado
-        // refatorar esta classe
         start: function (model) {
 
             this.torrentModel = model;
@@ -68,6 +78,7 @@
             this.torrentModel = null;
             this.torrentFiles = [];
             this.stateModel = null;
+            this.streamInfo = null;
 
             this.bufferReady = false;
             this.subtitleReady = false;
@@ -154,7 +165,10 @@
             } else {
                 // else we parse a torrentUrl with read-torrent
 
-                readTorrent(torrentUrl, function (err, torrent) {
+                var wt = new WebTorrent();
+                wt.add(torrentUrl, function (torrent) {
+
+                    var err = false;
 
                     if (err) {
                         App.vent.trigger('stream:stop');
@@ -185,7 +199,6 @@
                             files: torrent.files
                         });
                         App.vent.trigger('system:openFileSelector', fileModel);
-
                     }
 
                     return defer.resolve();
@@ -209,7 +222,7 @@
                 dht: true,
                 maxConns: parseInt(Settings.connectionLimit, 10) || 100,
                 tracker: {
-                    infoHash: torrent.info.infoHash,
+                    // infoHash: torrent.info.infoHash,
                     peerId: crypt.pseudoRandomBytes(10).toString('hex'),
                     port: parseInt(Settings.streamPort, 10) || 0,
                     announce: [
@@ -221,7 +234,7 @@
                 }
             });
 
-            this.streamInfo = new App.Model.WebTorrentStreamInfo();
+            this.streamInfo = new App.Model.StreamInfo();
             this.stateModel.set('streamInfo', this.streamInfo);
 
             this.webtorrent.add(torrent.info, {
@@ -238,7 +251,7 @@
 
             var torrent = this.__getTorrentObject();
 
-            this.streamInfo.set('wtTorrent', wtTorrentObj);
+            this.streamInfo.set('info', wtTorrentObj);
             this.streamInfo.set('torrent', torrent);
 
             this.streamInfo.selectFile();
