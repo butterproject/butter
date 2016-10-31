@@ -305,7 +305,7 @@
 
         },
 
-        __getTmpFilename:
+        __getTmpFilename: function() {
             return App.settings.tmpLocation;
         },
 
