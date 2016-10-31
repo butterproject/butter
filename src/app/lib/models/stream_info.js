@@ -13,61 +13,62 @@
 
         selectFile: function () {
 
-            var info = this.get('info'),
-                torrent = this.get('torrent'),
+            var torrentModel = this.get('torrentModel'),
+                torrent = torrentModel.get('torrent'),
                 size = 0;
 
-            if (torrent.file_index) {
-                size = info.files[torrent.file_index].length;
+            if (torrentModel.get('file_index')) {
+                size = torrent.files[torrentModel.get('file_index')].length;
             } else {
-                info.files.forEach(function (file) {
+                torrent.files.forEach(function (file) {
                     size += file.length;
                 });
             }
 
-            var videoFile = _.max(info.files, function (file) {
+            var videoFile = _.max(torrent.files, function (file) {
                 return file.length;
             });
 
-            this.set('videoFile', path.join(info.path, videoFile.path));
+            this.set('videoFile', path.join(torrent.path, videoFile.path));
             this.set('size', size);
         },
 
         updateStats: function () {
 
-            var info = this.get('info');
+            var torrentModel = this.get('torrentModel'),
+                torrent = torrentModel.get('torrent');
 
             var BUFFERING_SIZE = 10 * 1024 * 1024;
             var converted_speed = 0;
             var converted_downloaded = 0;
             var buffer_percent = 0;
 
-            var upload_speed = info.uploadSpeed; // upload speed
+            var upload_speed = torrent.uploadSpeed; // upload speed
             var final_upload_speed = Common.fileSize(0) + '/s';
             if (!isNaN(upload_speed) && upload_speed !== 0) {
                 final_upload_speed = Common.fileSize(upload_speed) + '/s';
             }
 
-            var download_speed = info.downloadSpeed; // download speed
+            var download_speed = torrent.downloadSpeed; // download speed
             var final_download_speed = Common.fileSize(0) + '/s';
             if (!isNaN(download_speed) && download_speed !== 0) {
                 final_download_speed = Common.fileSize(download_speed) + '/s';
             }
 
-            var downloaded = info.downloaded || 0; // downloaded
+            var downloaded = torrent.downloaded || 0; // downloaded
 
             var final_downloaded = Common.fileSize(0);
             var final_downloaded_percent = 0;
             if (downloaded !== 0) {
                 final_downloaded = Common.fileSize(downloaded);
-                final_downloaded_percent = info.progress * 100; //100 / this.get('size') * downloaded;
+                final_downloaded_percent = torrent.progress * 100; //100 / this.get('size') * downloaded;
             }
 
             if (final_downloaded_percent >= 100) {
                 final_downloaded_percent = 100;
             }
 
-            var downloadTimeLeft = info.timeRemaining; // time to wait before download complete
+            var downloadTimeLeft = torrent.timeRemaining; // time to wait before download complete
             if (isNaN(downloadTimeLeft) || downloadTimeLeft < 0) {
                 downloadTimeLeft = 0;
             } else if (!isFinite(downloadTimeLeft)) { // infinite
@@ -76,8 +77,8 @@
 
             this.set('pieces', 0);
             this.set('downloaded', downloaded);
-            this.set('active_peers', info.numPeers);
-            this.set('total_peers', info.numPeers);
+            this.set('active_peers', torrent.numPeers);
+            this.set('total_peers', torrent.numPeers);
 
             this.set('uploadSpeed', final_upload_speed); // variable for Upload Speed
             this.set('downloadSpeed', final_download_speed); // variable for Download Speed
