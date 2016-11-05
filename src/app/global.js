@@ -48,8 +48,5 @@ var
         plugins: ['ondeck']
     }),
 
-    // Torrent engines
-    peerflix = require('peerflix'),
-
     // NodeJS
     child = require('child_process');
