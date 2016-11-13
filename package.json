@@ -89,7 +89,7 @@
         "gulp-stylus": "^2.3.1",
         "gulp-tar": "^1.8.0",
         "gulp-gzip": "^1.2.0",
-        "gulp-jshint": "^2.0.0",
+        "gulp-jshint": "^2.0.3",
         "gulp-jsbeautifier": "^2.0.3",
         "gulp-filter": "^4.0.0",
         "gulp-load-plugins": "^1.2.0",
