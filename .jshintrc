@@ -45,6 +45,7 @@
         "deleteFolder": true,
         "deleteCookies": true,
         "isVideo": true,
+        "api_defines": true,
         "minimizeToTray": true,
         "promisifyDb": true,
         "db": true,

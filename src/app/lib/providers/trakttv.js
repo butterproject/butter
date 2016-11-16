@@ -2,8 +2,8 @@
     'use strict';
 
     var API_ENDPOINT = URI('https://api-v2launch.trakt.tv'),
-        CLIENT_ID = '647c69e4ed1ad13393bf6edd9d8f9fb6fe9faf405b44320a6b71ab960b4540a2',
-        CLIENT_SECRET = 'f55b0a53c63af683588b47f6de94226b7572a6f83f40bd44c58a7c83fe1f2cb1',
+        CLIENT_ID = api_defines.get('trakttv').client_id,
+        CLIENT_SECRET = api_defines.get('trakttv').client_secret,
         REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob';
 
     var isValid = function (id) {
