@@ -10,7 +10,9 @@
             torrentsPromise,
             subtitle ? idsPromise.then(_.bind(subtitle.fetch, subtitle)) : true,
             metadata ? idsPromise.then(function (ids) {
-                return Q.allSettled(_.map(ids, function (id) {
+                return Q.allSettled(_.map(_.filter(ids, function (id) {
+                    return id;
+                }), function (id) {
                     return metadata.client.movies.summary({id: id, extended: 'full'});
                 }));
             }) : true
