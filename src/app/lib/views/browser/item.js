@@ -199,7 +199,7 @@
         },
 
         showDetail: function (e) {
-            if (e) e.preventDefault();
+            e.preventDefault();
             var provider = App.Providers.get(this.model.get('provider'));
             var data;
             var type = this.model.get('type');

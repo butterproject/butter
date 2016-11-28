@@ -462,7 +462,7 @@
                     App.vent.trigger('movie:closeDetail');
                     App.vent.on('list:loaded', function () {
                         if (that.model.get('isRandom')) {
-                            App.View.MovieBrowser.showDetail();
+                            $('.main-browser .items .cover')[0].click();
                             that.model.set('isRandom', false);
                         }
                     });
