@@ -158,7 +158,7 @@
             var realtype = this.model.get('type');
             var itemtype = realtype.replace('bookmarked', '');
             var modelType = itemtype.charAt(0).toUpperCase() + itemtype.slice(1); // 'Movie', 'Show'
-            var provider = App.Providers.get(this.model.get('provider'));
+            var provider = this.model.get('provider');
 
             // bookmarked movies are cached
             if (realtype === 'bookmarkedmovie') {
@@ -167,7 +167,7 @@
 
             // display the spinner
             $('.spinner').show();
-            provider.detail(this.model.get('imdb_id'), this.model.attributes).then(function (data) {
+            return provider.detail(this.model.get('imdb_id'), this.model.attributes).then(function (data) {
                 $('.spinner').hide();
 
                 // inject provider's name
