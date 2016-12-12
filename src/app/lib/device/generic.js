@@ -2,7 +2,7 @@
     'use strict';
 
     var self;
-
+    var NetworkAddress = require('network-address');
     var Device = Backbone.Model.extend({
         defaults: {
             id: 'local',
@@ -71,7 +71,7 @@
             }
 
             if (this.selected.get('typeFamily') === 'external') {
-                var srcIp = require('network-address')();
+                var srcIp = NetworkAddress();
                 streamModel.attributes.src = streamModel.attributes.src.replace('127.0.0.1', srcIp);
             }
             return this.selected.play(streamModel);
