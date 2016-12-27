@@ -5,6 +5,7 @@
     /* load all the things ! */
     var Q = require('q');
     var fs = require('fs');
+    var Provider = require('butter-provider');
 
     function loadLocalProviders() {
         var appPath = '';
@@ -79,32 +80,26 @@
 
     App.bootstrapPromise = loadNpmSettings()
         .then(loadProviders)
-        .then(function (values) {
-            return _.filter(_.keys(Settings.providers).map(function (type) {
-                return {
-                    provider: App.Config.getProviderForType(type),
-                    type: type
-                };
-            }), function (p) {
-                return p.provider;
-            });
-        })
-        .then(function (providers) {
-            App.TabTypes = {};
-
-            _.each(providers, function (provider) {
-                var p = Settings.providers[provider.type];
-                if (!p.name) {
-                    return;
-                }
-
-                App.TabTypes[provider.type] = p.name;
-            });
+        .then(values => (
+            Object.keys(Settings.tabs)
+                .map(tabType => ({
+                    provider: App.Config.getProviderForTabType(tabType),
+                    tabType: tabType
+                })).filter(p => (p.provider))
+        )).then(providers =>  {
+            App.TabTypes = providers
+                .map(p => ({
+                    type: p.type,
+                    tabType: p.provider.config ?
+                        p.provider.config.type :
+                        p.provider.map(p => (p.config.type)),
+                    name: p.provider.name ||
+                        p.provider.map(p => (p.name))
+                })).reduce((a, c) => {
+                    a[c.type] = c.name;
+                    return a;
+                }, {});
 
             return providers;
-        })
-        .then(function (providers) {
-            //console.log('loaded', providers);
         });
-
 })(window.App);

@@ -1,6 +1,8 @@
 (function (App) {
     'use strict';
 
+    var _cache = {};
+
     var getDataFromProvider = function (providers, collection) {
         var deferred = Q.defer();
         var filters = Object.assign(collection.filter, {page: providers.torrent.page});
@@ -88,7 +90,9 @@
                             torrentProvider.hasMore = false;
                         }
 
-                        self.add(torrents.results);
+                        self.add(torrents.results.map(attrs => (
+                            App.Model.new(attrs)
+                        )));
 
                         // set state, can't fail
                         self.trigger('sync', self);
@@ -106,5 +110,29 @@
         }
     });
 
+    App.Model.getCollectionModelForTab = function (tab) {
+        if (_cache[tab]) {
+            return _cache[tab];
+        }
+
+        _cache[tab] = PopCollection.extend({
+            popid: 'imdb_id',
+            type: tab,
+            modelId: function (attrs) {
+                var id = attrs.idAttribute || 'id';
+                return attrs[id];
+            },
+            getProviders: function () {
+                return {
+                    torrents: App.Config.getProviderForTabType(tab),
+                    metadata: App.Config.getProviderForType('metadata')
+                };
+            }
+        });
+
+        return _cache[tab];
+    };
+
     App.Model.Collection = PopCollection;
+
 })(window.App);

@@ -1,6 +1,8 @@
 (function (App) {
     'use strict';
 
+    var Provider = require('butter-provider');
+
     var Movie = App.Model.ContentItem.extend({
         getProviders: function() {
             return {
@@ -9,5 +11,5 @@
         }
     });
 
-    App.Model.Movie = Movie;
+    App.Model.register(Provider.ItemType.MOVIE, Movie);
 })(window.App);

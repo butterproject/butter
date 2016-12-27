@@ -31,7 +31,7 @@
             App.vent.on('sub:lang',   this.switchSubtitle.bind(this));
             App.vent.on('audio:lang', this.switchAudio.bind(this));
             App.vent.on('update:subtitles', function (subs)  {
-                this.views.sub.updateLangs(subs);
+                this.views.sub.update(subs);
             }.bind(this));
 
             this.model.on('change:quality', function () {

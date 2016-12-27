@@ -47,18 +47,18 @@ var Settings = {
     }
 };
 
-Settings.providers = {
+Settings.tabs = {
     movie: {
         order: 1,
         name: 'Movies',
-        uri: ['vodo', 'archive',
+        providers: ['vodo', 'archive',
           //'stremio?auth={"url":"http://api8.herokuapp.com","key":"423f59935153f2f5d2db0f6c9b812592b61b3737"}&url=http://localhost:9005'
         ]
     },
     tvshow: {
         order: 2,
         name: 'Series',
-        uri: [
+        providers: [
             'youtube?channel=kurzgesagt',
             'youtube?channel=devinsupertramp',
             'youtube?channel=TEDtalksDirector',
@@ -72,12 +72,21 @@ Settings.providers = {
             'youtube?channel=willunicycleforfood', // exurb1a
             //'youtube?channel=petercapusottotv&titleRegex=[0-9]+[aª] +Temporada',
             'ccc'
-        ]
+        ],
     },
+    test: {
+        name: 'Test',
+        providers: [
+            'ccc',
+            'vodo'
+        ]
+    }
+};
+
+Settings.providers = {
     subtitle: 'OpenSubtitles',
     metadata: 'Trakttv',
     tvst: 'TVShowTime',
-
     torrentCache: 'TorrentCache',
 };
 
@@ -121,7 +130,7 @@ Settings.alwaysOnTop = false;
 Settings.theme = 'Official_-_Dark_theme';
 Settings.ratingStars = true; //trigger on click in details
 Settings.hideSeasons = true;
-Settings.startScreen = 'Movies';
+Settings.startScreen = Object.keys(Settings.tabs)[0];
 Settings.lastTab = '';
 Settings.rememberFilters = false;
 

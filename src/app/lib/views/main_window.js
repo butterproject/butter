@@ -70,13 +70,11 @@
             });
 
             // Application events
-            App.vent.on('movies:list', _.bind(this.movieTabShow, this));
-            App.vent.on('shows:list', _.bind(this.tvshowTabShow, this));
-            App.vent.on('anime:list', _.bind(this.animeTabShow, this));
-            App.vent.on('indie:list', _.bind(this.indieTabShow, this));
+            App.vent.on('show:tab', this.showTab.bind(this));
+
             App.vent.on('favorites:list', _.bind(this.showFavorites, this));
             App.vent.on('favorites:render', _.bind(this.renderFavorites, this));
-            App.vent.on('watchlist:list', _.bind(this.showWatchlist, this));
+
             App.vent.on('shows:update', _.bind(this.updateShows, this));
             App.vent.on('shows:init', _.bind(this.initShows, this));
 
@@ -206,23 +204,13 @@
 
                     that.InitModal.destroy();
 
-                    var lastOpen = (Settings.startScreen === 'Last Open') ? true : false;
-
-                    if (Settings.startScreen === 'Watchlist' || (lastOpen && Settings.lastTab === 'Watchlist')) {
-                        that.showWatchlist();
-                    } else if (Settings.startScreen === 'Favorites' || (lastOpen && Settings.lastTab === 'Favorites')) {
-                        that.showFavorites();
-                    } else if (Settings.startScreen === 'Torrent-collection' || (lastOpen && Settings.lastTab === 'Torrent-collection')) {
-                        that.movieTabShow(); //needed because Torrentcollection isnt a real collection
-                        that.showTorrentCollection();
-                    } else if (Settings.startScreen === 'TV Series' || (lastOpen && Settings.lastTab === 'TV Series')) {
-                        that.tvshowTabShow();
-                    } else if (Settings.startScreen === 'Anime' || (lastOpen && Settings.lastTab === 'Anime')) {
-                        that.animeTabShow();
-                    } else if (Settings.startScreen === 'Indie' || (lastOpen && Settings.lastTab === 'Indie')) {
-                        that.indieTabShow();
+                    var lastOpen = (Settings.startScreen === 'Last Open');
+                    if (Settings.startScreen) {
+                        that.showTab(Settings.startScreen);
+                    } else if (lastOpen && Settings.lastTab) {
+                        that.showTab(Settings.lastTab);
                     } else {
-                        that.movieTabShow();
+                        that.showTab(App.Config.getTabs().pop().type);
                     }
 
                     // do we celebrate events?
@@ -250,35 +238,18 @@
 
             App.vent.trigger('updatePostersSizeStylesheet');
             App.vent.trigger('main:ready');
-
         },
 
-        movieTabShow: function (e) {
+        showTab: function (newTab) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
 
-            this.Content.show(new App.View.MovieBrowser());
-        },
+            var model = App.Model.getCollectionModelForTab(newTab);
+            var view = App.View.getViewForTab(newTab);
 
-        tvshowTabShow: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            this.Content.show(new App.View.ShowBrowser());
-        },
-
-        animeTabShow: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            this.Content.show(new App.View.AnimeBrowser());
-        },
-
-        indieTabShow: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            this.Content.show(new App.View.IndieBrowser());
+            this.Content.show(new view({
+                collectionModel: model
+            }));
         },
 
         updateShows: function (e) {

@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/dosis-fontface/dosis.css">
 	<link rel="stylesheet" type="text/css" href="css/animation.css">
 	<link rel="stylesheet" type="text/css" id="theme" href="themes/Official_-_Dark_theme.css">
 </head>
@@ -23,6 +24,8 @@
 	<script id="settings-container-tpl" src="templates/settings-container.tpl" type="text/x-template"></script>
 	<script id="header-tpl" src="templates/header.tpl" type="text/x-template"></script>
 	<script id="lang-dropdown-tpl" src="templates/lang-dropdown.tpl" type="text/x-template"></script>
+	<script id="filter-dropdown-tpl" src="templates/filter-dropdown.tpl" type="text/x-template"></script>
+	<script id="search-dropdown-tpl" src="templates/search-dropdown.tpl" type="text/x-template"></script>
 	<script id="play-control-tpl" src="templates/play-control.tpl" type="text/x-template"></script>
 	<script id="movie-detail-tpl" src="templates/movie-detail.tpl" type="text/x-template"></script>
 	<script id="show-detail-tpl" src="templates/show-detail.tpl" type="text/x-template"></script>
@@ -86,11 +89,7 @@
 	<script src="lib/models/movie.js"></script>
   	<script src="lib/models/show.js"></script>
 	<script src="lib/models/generic_collection.js"></script>
-	<script src="lib/models/movie_collection.js"></script>
 	<script src="lib/models/stream_info.js"></script>
-	<script src="lib/models/show_collection.js"></script>
-  	<script src="lib/models/anime_collection.js"></script>
-	<script src="lib/models/indie_collection.js"></script>
 	<script src="lib/models/favorite_collection.js"></script>
   	<script src="lib/models/watchlist_collection.js"></script>
 	<script src="lib/models/notification.js"></script>
@@ -99,9 +98,9 @@
 	<script src="lib/cache.js"></script>
 	<script src="lib/cachev2.js"></script>
   	<script src="lib/providers/generic.js"></script>
+	<script src="lib/providers/cache_providerv2.js"></script>
 <!--
 	<script src="lib/providers/cache_provider.js"></script>
-	<script src="lib/providers/cache_providerv2.js"></script>
 	<script src="lib/providers/trakttv.js"></script>
 	<script src="lib/providers/vodo.js"></script>
 	<script src="lib/providers/archive.js"></script>
@@ -114,7 +113,10 @@
 	<script src="lib/views/title_bar.js"></script>
 	<script src="lib/views/main_window.js"></script>
 
+	<script src="lib/views/dropdown.js"></script>
 	<script src="lib/views/lang_dropdown.js"></script>
+	<script src="lib/views/filter_dropdown.js"></script>
+	<script src="lib/views/search_dropdown.js"></script>
 	<script src="lib/views/movie_detail.js"></script>
 	<script src="lib/views/show_detail.js"></script>
 	<script src="lib/views/play_control.js"></script>

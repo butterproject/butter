@@ -199,49 +199,52 @@
             tables: ['metadata']
         },
 
-        getTabTypes: function () {
-            return _.sortBy(_.filter(_.map(Settings.providers, function (p, t) {
-                return {
-                    name: p.name,
-                    order: p.order || 1,
-                    type: t
-                };
-            }), function (p) {
-                return p.name;
-            }), 'order');
+        getTabs: function () {
+            var tabs = Settings.tabs;
+            return Object.keys(tabs)
+                .sort((a, b) => (tabs[a].order > tabs[b].order))
+                .map(t => (Object.assign({type: t}, tabs[t])));
         },
 
         getProviderForType: function (type) {
             var provider = Settings.providers[type];
-            if (typeof provider !== 'string') {
-                if (provider && provider.uri) {
-                    provider = provider.uri;
-                }
-            }
 
             if (!provider) {
-                console.error('Provider type: \'%s\' isn\'t defined in App.Config.providers', type);
-                return;
-            } else if (provider instanceof Array || typeof provider === 'object') {
-                return _.map(provider, function (t) {
-                    return App.Providers.get(t);
-                });
-            } else {
-                return App.Providers.get(provider);
+                console.error('Provider type: \'%s\' isn\'t defined in App.Settings.providers', type);
+                return null;
             }
+
+            return App.Providers.get(provider);
         },
 
-        getProviderNameForType: function (type) {
-            return this.getProviderForType(type).map(function (p) {
-                return p.config.tabName;
-            });
+        getProviderForTabType: function (tabType) {
+            var tab = Settings.tabs[tabType];
+            var providers = tab.providers;
+
+            if (providers instanceof Array) {
+                return providers
+                    .map(t => (App.Providers.get(t)));
+            } else if (typeof providers === 'object') {
+                return Object.values(providers)
+                    .map(t => (App.Providers.get(t)));
+            }
+
+            console.error ('Couldn\'t find providers list in tab', tab);
+            return null;
         },
 
-        getFiltredProviderNames: function (type) {
-            var ret = {};
-            this.getProviderNameForType(type).map(function (n) {
-                ret[n] = ret[n] ? ret[n] + 1 : 1;
-            });
+        getProviderNameForTabType: function (tabType) {
+            return this.getProviderForTabType(tabType)
+                .map(p => (p.config.tabName));
+        },
+
+        getFiltredProviderNames: function (providers) {
+            var ret = providers
+                .reduce((a, c) => {
+                    let n = c.split(':')[0];
+                    a[n]++;
+                    return a;
+                }, {});
 
             return _.map(ret, function (v, k) {
                 return k.concat((v > 1) ? ':' + v : '');

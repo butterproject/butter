@@ -1,6 +1,8 @@
 (function (App) {
     'use strict';
 
+    var _cache = {};
+
     /**
      * Manage browsing:
      *  * Create filter views
@@ -21,10 +23,10 @@
             'click .online-search': 'onlineSearch'
         },
 
-        initialize: function () {
+        initialize: function (attrs) {
             this.filter = new App.Model.Filter(this.filters);
 
-            this.collection = new this.collectionModel([], {
+            this.collection = new attrs.collectionModel([], {
                 filter: this.filter
             });
 
@@ -132,6 +134,21 @@
             return filters[this.currentView()] || this.filter.pick('sorter', 'genre', 'type', 'order');
         }
     });
+
+    App.View.getViewForTab = function (tab) {
+        if (_cache[tab]) {
+            return _cache[tab];
+        }
+
+        _cache[tab] = App.View.PCTBrowser.extend({
+            filters: {
+                genres: App.Config.genres,
+                sorters: App.Config.sorters
+            }
+        });
+
+        return _cache[tab];
+    };
 
     App.View.PCTBrowser = PCTBrowser;
 })(window.App);

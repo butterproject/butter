@@ -1,6 +1,8 @@
 (function (App) {
     'use strict';
 
+    var Provider = require('butter-provider');
+
     var Show = App.Model.ContentItem.extend({
         idAttribute: 'tvdb_id',
 
@@ -9,7 +11,8 @@
 
             _.each(torrents, function (torrent) {
                 _.each(torrent, function (episode, key) {
-                    torrent[key].health = Common.healthMap[Common.calcHealth(episode)];
+                    torrent[key].health =
+                        Common.healthMap[Common.calcHealth(episode)];
                 });
             });
 
@@ -19,5 +22,5 @@
         }
     });
 
-    App.Model.Show = Show;
+    App.Model.register(Provider.ItemType.TVSHOW, Show);
 })(window.App);

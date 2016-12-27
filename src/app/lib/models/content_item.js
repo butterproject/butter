@@ -1,17 +1,19 @@
 (function (App) {
     'use strict';
 
+    var _registry = {};
+
     var ContentItem = Backbone.Model.extend({
         events: {
             'change:torrents': 'updateHealth'
         },
-
         idAttribute: 'imdb_id',
 
         initialize: function (attrs) {
             var providers = Object.assign(attrs.providers,
                                                 this.getProviders());
             this.set('providers', providers);
+            this.set('idAttribute', this.idAttribute);
 
             providers.metadata &&
                 providers.metadata.getImages(attrs)
@@ -43,6 +45,20 @@
             });
         }
     });
+
+    App.Model.register = function (type, model) {
+        model.type = type;
+        _registry[type] = model;
+    };
+
+    App.Model.getForType = function (type) {
+        return _registry[type] || console.error('Asked for unknown type:', type);
+    };
+
+    App.Model.new = function (attrs) {
+        var model = App.Model.getForType(attrs.type);
+        return new model(attrs);
+    };
 
     App.Model.ContentItem = ContentItem;
 })(window.App);
