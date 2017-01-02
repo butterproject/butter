@@ -633,6 +633,23 @@ if (nw.App.fullArgv.indexOf('-f') !== -1) {
     win.enterFullscreen();
 }
 
+// --development for devs
+if (
+    nw.App.fullArgv.indexOf('--development') !== -1 
+    && nw.App.fullArgv.join().match('--remote-debugging-port') 
+    && nw.App.manifest.debugPort
+) {
+    win.showInspectPage = function () {
+        nw.Window.open('localhost:' + nw.App.manifest.debugPort, {
+            new_instance: true
+        });
+    };
+
+    Mousetrap.bindGlobal(['mod+shift+i'], function (e) {
+        win.showInspectPage();
+    });
+}
+
 // nwjs window events
 win.on('focus', function () { //hack to make it somehow work
     win.setAlwaysOnTop(true);

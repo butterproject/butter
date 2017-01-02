@@ -151,7 +151,12 @@ gulp.task('run', () => {
         console.log('Running %s from cache', platform);
 
         // spawn cached binary with package.json, toggle dev flag
-        const child = spawn(bin, ['.', '--development']);
+        const spargs = ['.', '--development'];
+        if (pkJson.debugPort) {
+            spargs.push('--remote-debugging-port=' + pkJson.debugPort);
+        }
+
+        const child = spawn(bin, spargs);
 
         // nwjs console speaks to stderr
         child.stderr.on('data', (buf) => {
