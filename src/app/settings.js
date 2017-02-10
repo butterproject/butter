@@ -169,6 +169,8 @@ Settings.automaticUpdating = true;
 Settings.events = true;
 Settings.minimizeToTray = false;
 Settings.bigPicture = false;
+Settings.autoSeed = false;
+Settings.seedLimit = 2;
 
 // Features
 Settings.activateTorrentCollection = false;
