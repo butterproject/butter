@@ -241,6 +241,9 @@
                             App.Device.Collection.setDevice(AdvSettings.get('chosenPlayer'));
                         }
                     }
+
+                    // Focus the window when the app opens
+                    win.focus();
                 });
 
             // Cancel all new windows (Middle clicks / New Tab)
