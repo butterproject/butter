@@ -10,6 +10,7 @@ var crypt = require('crypto');
 var SeederTask = function (opt) {
     this.webtorrent = null;
     this.torrentFiles = null;
+    this.name = opt.name;
     this.tmpLocation = opt.tmpLocation;
     this.seedLimit = opt.seedLimit;
     this.connectionLimit = opt.connectionLimit;

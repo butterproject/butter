@@ -33,6 +33,7 @@
                 var taskFile = 'src/app/lib/workers/seederTask.js';
                 // TODO: AdvSettings here should be trigger creation of worker instance
                 var args = JSON.stringify({
+                    name: 'BackgroundSeeder',
                     connectionLimit: Settings.connectionLimit,
                     trackerAnnouncement: Settings.trackers.forced,
                     tmpLocation: App.settings.tmpLocation,
