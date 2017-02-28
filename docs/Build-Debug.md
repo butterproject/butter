@@ -86,7 +86,7 @@ Now that the requirements are met, we can get the source code and build the appl
 
 `Gulp` can automate the packing of redistribuable packages from the source code you built. You'll need a few more prerequisites if you want to produce `.deb` or `.exe` installers:
 - **NSIS** (version 3): Allows to compile a Windows installer. Download it on [Windows](http://nsis.sourceforge.net/Download) or [Debian/Ubuntu](https://launchpad.net/%7Epali/+archive/ubuntu/pali/+sourcepub/4562034/+listing-archive-extra). It is not available on OSX.
-- **dpkg-deb**: Allows to compile .deb packages. Available only on Linux: `sudo apt-get install dpkg-deb fakeroot`
+- **dpkg-dev**: Allows to compile .deb packages. Available only on Linux: `sudo apt-get install dpkg-dev fakeroot`
 
 To build the application redistribuable binaries, you can run:
 
