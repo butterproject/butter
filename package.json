@@ -64,7 +64,7 @@
         "q": "2.0.3",
         "readdirp": "*",
         "request": "2.x.x",
-        "rimraf": "2.x.x",
+        "rimraf": "2.5.0",
         "sanitizer": "0.x.x",
         "semver": "5.x.x",
         "send": "0.14.2",
