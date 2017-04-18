@@ -34,6 +34,7 @@
         "position": "center"
     },
     "chromium-args": "--enable-node-worker",
+    "debugPort": 3290,
     "dependencies": {
         "butter-provider": "0.6.0",
         "butter-provider-ccc": "git+https://github.com/butterproviders/butter-provider-ccc",
