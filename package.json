@@ -63,7 +63,7 @@
         "opensubtitles-api": "^3.1.0",
         "q": "2.0.3",
         "readdirp": "*",
-        "request": "2.x.x",
+        "request": "2.69.0",
         "rimraf": "2.x.x",
         "sanitizer": "0.x.x",
         "semver": "5.x.x",
