@@ -287,6 +287,13 @@
     <section id="playback">
         <div class="title"><%= i18n.__("Playback") %></div>
         <div class="content">
+            <span>
+                <div class="dropdown chosen-player">
+                  <p><%= i18n.__("Video Player") %></p>
+                  <select name="chosenPlayer" id="chosenPlayer" style="width: 160px;"></select>
+                  <div class="dropdown-arrow"></div>
+                </div>
+            </span>
             <span class="advanced">
                 <input class="settings-checkbox" name="alwaysFullscreen" id="alwaysFullscreen" type="checkbox" <%=(Settings.alwaysFullscreen? "checked='checked'":"")%>>
                 <label class="settings-label" for="alwaysFullscreen"><%= i18n.__("Always start playing in fullscreen") %></label>

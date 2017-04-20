@@ -61,6 +61,11 @@
                 }
             });
 
+            var el = $('#chosenPlayer');
+            App.Device.Collection.forEach(function (device) {
+                el.append(new Option(device.get('name'), device.get('id'), false, App.settings['chosenPlayer'] === device.get('id') ? true : false));
+            });            
+
             Mousetrap.bind('backspace', function (e) {
                 App.vent.trigger('settings:close');
             });
@@ -261,6 +266,9 @@
             case 'opensubtitlesUsername':
             case 'opensubtitlesPassword':
                 return;
+            case 'chosenPlayer':
+                value = $('option:selected', field).val();
+                break;
             default:
                 console.error('Setting not defined: ' + field.attr('name'));
             }
