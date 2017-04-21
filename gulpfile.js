@@ -414,6 +414,111 @@ gulp.task('compress', () => {
     })).catch(console.log.bind(console));
 });
 
+gulp.task('uglify', () => {
+    const uglify = require('uglify-js');
+    const async = require('async');
+    const sqwish = require('sqwish');
+
+    let ignore = [
+        /*'vendor',
+        'node_modules',
+        'locales'*/
+    ];
+
+    let previous = Date.now();
+    let looping = previous;
+
+    function walk(p) {
+        fs.readdir(p, (err, res) => {
+            async.each(res, (f, cb) => {
+                fs.lstat(path.join(p,f), (err, stat) => {
+                    if (err || ignore.indexOf(f) !== -1) {
+                        looping = Date.now();
+                        return cb();
+                    }
+
+                    if (stat.isFile()) {
+                        let file = path.join(p,f);
+                        switch (path.extname(f)) {
+                            case '.js':
+                                var minified;
+                                try {
+                                    minified = uglify.minify(file, {
+                                        mangle: false
+                                    });
+                                } catch (e) {
+                                    looping = Date.now();
+                                    return cb();
+                                }
+                                if (minified && minified.code) {
+                                    fs.writeFile(file, minified.code, function (err) {
+                                        if (!err) {
+                                            console.log('Minified:', file);
+                                        }
+                                        looping = Date.now();
+                                        return cb();
+                                    });
+                                } else {
+                                    looping = Date.now();
+                                    return cb();
+                                }
+                                break;
+                            case '.css':
+                                fs.readFile(file, function (err, content) {
+                                    if (err) {
+                                        looping = Date.now();
+                                        return cb();
+                                    }
+
+                                    var minified;
+                                    try {
+                                        minified = sqwish.minify(content.toString());
+                                    } catch (e) {
+                                        looping = Date.now();
+                                        return cb();
+                                    }
+
+                                    if (minified) {
+                                        fs.writeFile(file, minified, function (err) {
+                                            if (!err) {
+                                                console.log('Minified:', file);
+                                            }
+                                            looping = Date.now();
+                                            return cb();
+                                        });
+                                    } else {
+                                        looping = Date.now();
+                                        return cb();
+                                    }
+                                });
+                                break;
+                            default:
+                                looping = Date.now();
+                                return cb();
+                        }
+                    } else {
+                        walk(path.join(p,f));
+                        looping = Date.now();
+                        return cb();
+                    }
+                });
+            });
+        });
+    }
+
+    return new Promise((resolve, reject) => {
+        walk('build');
+
+        let checkDone = setInterval(() => {
+            previous = Date.now();
+            if (looping + 5000 < previous) {
+                clearInterval(checkDone);
+                resolve();
+            }
+        }, 250);
+    });
+});
+
 // prevent commiting if conditions aren't met and force beautify (bypass with `git commit -n`)
 gulp.task('pre-commit', ['jshint']);
 

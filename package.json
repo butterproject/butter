@@ -98,7 +98,9 @@
         "nib": "^1.1.0",
         "nw-builder": "^3.1.2",
         "run-sequence": "^1.1.5",
+        "sqwish": "^0.2.2",
         "stylus": "^0.54.2",
+        "uglify-js": "^2.7.4",
         "yargs": "^6.3.0"
     }
 }

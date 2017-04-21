@@ -73,7 +73,7 @@
                             reject(e);
                         }
                     } else if (fgz) {
-                        require('zlib').unzip(fs.readFileSync(fpath+ext), (error, buffer) => {
+                        require('zlib').unzip(fs.readFileSync(fpath+ext), function (error, buffer) {
                             if (error) {
                                 reject(error);
                             } else {
