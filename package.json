@@ -69,7 +69,7 @@
         "semver": "5.x.x",
         "send": "0.14.2",
         "strike-api": "0.2.0",
-        "tar": "2.2.1",
+        "tar": "3.0.0",
         "temp": "0.x.x",
         "webtorrent-health": "1.x.x",
         "trakt.tv": "5.0.1",
