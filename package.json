@@ -54,7 +54,7 @@
         "markdown": "0.5.x",
         "memoizee": "0.x.x",
         "mkdirp": "*",
-        "moment": ">=2.11.2",
+        "moment": ">=2.18.0",
         "mv": "2.x.x",
         "nedb": "1.4.0",
         "node-captions": "0.4.6",
