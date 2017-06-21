@@ -286,7 +286,6 @@
             $('.items').attr('tabindex', '1');
             _.defer(function () {
                 self.checkFetchMore();
-                self.$('.items:first').focus();
             });
 
         },
