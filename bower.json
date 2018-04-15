@@ -2,9 +2,6 @@
   "name": "Butter",
   "description": "",
   "main": "src/app/index.html",
-  "authors": [
-    "Vytenis <projektas@gmail.com>"
-  ],
   "license": "GPL-3.0",
   "homepage": "https://github.com/butterproject/butter-desktop",
   "ignore": [
