@@ -34,6 +34,7 @@ The [master](https://github.com/butterproject/butter-desktop) branch which conta
 #### Quickstart:
 ```sh
     yarn
+    yarn build
     yarn start
 ```
 
