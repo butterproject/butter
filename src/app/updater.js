@@ -3,6 +3,8 @@
 
     var CHANNELS = ['stable', 'beta', 'nightly'],
         FILENAME = 'package.nw.new',
+        WebTorrent = require('webtorrent'),
+        client = new WebTorrent({dht: true}),
         VERIFY_PUBKEY = Settings.updateKey;
 
     function forcedBind(func, thisVar) {
@@ -19,7 +21,7 @@
         var self = this;
 
         this.options = _.defaults(options || {}, {
-            endpoint: AdvSettings.get('updateEndpoint').url + 'update3.json' + '?version=' + App.settings.version + '&nwversion=' + process.versions['node-webkit'],
+            endpoint: AdvSettings.get('updateEndpoint').url + 'p2pudpate.json' + '?version=' + App.settings.version + '&nwversion=' + process.versions['node-webkit'],
             channel: 'beta'
         });
 
@@ -77,21 +79,43 @@
                 self.updateData = updateData;
                 return true;
             }
-
+            if (App.settings.seedUpdate) {
+                client.add(updateData.UpdateUrl, { path: os.tmpdir() }, function (torrent) {
+                    torrent.on('error', err => {
+                        console.info('ERROR' + err.message);
+                    });
+                    torrent.on('done', function () {
+                        console.info('Seeding the Current Update!');
+                    });
+                });
+            }
             console.info('Not updating because we are running the latest version');
             return false;
         });
     };
 
-    Updater.prototype.download = function (source, output) {
+
+    Updater.prototype.download = function (source, outputDir) {
         var defer = Q.defer();
-        var downloadStream = request(source);
-        console.info('Downloading update... Please allow a few minutes');
-        downloadStream.pipe(fs.createWriteStream(output));
-        downloadStream.on('complete', function () {
-            console.log('Update downloaded!');
-            defer.resolve(output);
+        client.on('error', function (err) {
+            console.error('ERROR: ' + err.message);
+            defer.reject(err);
         });
+
+        client.add(source, {
+            path: outputDir
+        }, function (torrent) {
+            console.info('Downloading update... Please allow a few minutes');
+            torrent.on('error', function (err) {
+                console.info('ERROR' + err.message);
+                defer.reject(err);
+            });
+            torrent.on('done', function () {
+                console.info('Update downloaded!');
+                defer.resolve(path.join(outputDir, torrent.name));
+            });
+        });
+
         return defer.promise;
     };
 

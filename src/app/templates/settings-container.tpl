@@ -555,8 +555,12 @@
                 <label class="settings-label" for="cb5"><%= i18n.__("Activate automatic updating") %></label>
             </span>
             <span>
-                <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb6"><%= i18n.__("Celebrate various events") %></label>
+                <input class="settings-checkbox" name="seedUpdate" id="cb6" type="checkbox" <%=(Settings.seedUpdate? "checked='checked'":"")%>>
+                <label class="settings-label" for="cb6"><%= i18n.__("Seed update to other users") %></label>
+            </span>
+            <span>
+                <input class="settings-checkbox" name="events" id="cb7" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
+                <label class="settings-label" for="cb7"><%= i18n.__("Celebrate various events") %></label>
             </span>
             <span>
                 <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
